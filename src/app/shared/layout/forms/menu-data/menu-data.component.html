@@ -1,0 +1,70 @@
+<form fxLayout="column" [formGroup]="formMenu" (ngSubmit)="onSubmit()">
+
+
+    <h3>Nome:</h3>
+    <div class="row">
+        <div class="col-8 form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>Nome do menu</mat-label>
+                <input matInput formControlName="name" required>
+                <mat-error>O nome é obrigatório!</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+
+    <h3>Período de Funcionamento:</h3>
+    <div class="row">
+        <div class="col-4 form-group">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Data inicial da ativação</mat-label>
+                <input formControlName="startActivationDate" matInput [matDatepicker]="pickerStart">
+                <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                <mat-datepicker #pickerStart></mat-datepicker>
+                <mat-error>A data é obrigatório!</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-4 form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>Data final da ativação</mat-label>
+                <input formControlName="endActivationDate" matInput [matDatepicker]="pickerEnd">
+                <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+                <mat-datepicker #pickerEnd></mat-datepicker>
+                <mat-error>A data é obrigatório!</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+
+    <h3>Horário de Funcionamento:</h3>
+    <br>
+    <div class="row">
+        <div formArrayName="openning" *ngFor="let operation of formMenu.get('openning').controls; let i = index;"
+            class="col-6">
+            {{daysOfWeek[i]}}:
+            <div [formGroupName]="i" class="row">
+                <div class="col-5 form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Inicio:</mat-label>
+                        <input matInput formControlName="startHour" required>
+                        <mat-error>O inicio é obrigatório!</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-5 form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Fim</mat-label>
+                        <input matInput formControlName="endHour" required>
+                        <mat-error>O final é obrigatório!</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-11 form-group text-right">
+            <button type="submit" class="btn btn-primary text-medium">
+                Avançar
+            </button>
+        </div>
+    </div>
+</form>
