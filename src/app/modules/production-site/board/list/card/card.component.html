@@ -27,14 +27,26 @@
     <!-- / CARD LABELS -->
 
     <!-- CARD NAME -->
-    <div class="list-card-name">Nome do Cliente</div>
+    <div class="list-card-name">
+        <mat-icon class="s-24">perm_identity</mat-icon> Nome do Cliente
+    </div>
     <!-- / CARD NAME -->
-    <p> - Refrigerante</p>
-    <p> - Hamburger</p>
-    <p> - Sorvete</p>
 
-    <div *ngIf="card.due || card.checkItems"
-         class="list-card-badges" fxLayout="row" fxLayoutAlign="start center">
+    <p class="list-card-item">
+        <mat-icon class="s-14">room_service</mat-icon> Coca-Cola <mat-icon class="s-12">clear</mat-icon> 2
+    </p>
+    <p class="list-card-item">
+        <mat-icon class="s-14">room_service</mat-icon> X-salada <mat-icon class="s-12">clear</mat-icon> 2 - 1 Normal e 1
+        sem queijo
+    </p>
+    <p class="list-card-item">
+        <mat-icon class="s-14">room_service</mat-icon> Sorvete <mat-icon class="s-12">clear</mat-icon> 1 - Sabor
+        Baunilha
+    </p>
+
+
+
+    <div *ngIf="card.due || card.checkItems" class="list-card-badges" fxLayout="row" fxLayoutAlign="start center">
 
         <!-- CARD DUE -->
         <!-- <span class="badge due-date"
@@ -84,42 +96,42 @@
 
     <div fxLayout="row" fxLayoutAlign="start center"> -->
 
-        <!-- CARD SUBSCRIBE -->
-        <!-- <span *ngIf="card.subscribed" class="list-card-footer-item"
+<!-- CARD SUBSCRIBE -->
+<!-- <span *ngIf="card.subscribed" class="list-card-footer-item"
               fxLayout="row" fxLayoutAlign="start center">
             <mat-icon class="s-18">remove_red_eye</mat-icon>
         </span> -->
-        <!-- / CARD SUBSCRIBE -->
+<!-- / CARD SUBSCRIBE -->
 
-        <!-- CARD DETAILS -->
-        <!-- <span *ngIf="card.description !== ''" -->
-              <!-- class="list-card-footer-item" fxLayout="row" fxLayoutAlign="start center">
+<!-- CARD DETAILS -->
+<!-- <span *ngIf="card.description !== ''" -->
+<!-- class="list-card-footer-item" fxLayout="row" fxLayoutAlign="start center">
             <mat-icon class="s-18">description</mat-icon>
         </span> -->
-        <!-- / CARD DETAILS -->
+<!-- / CARD DETAILS -->
 
-    <!-- </div>
+<!-- </div>
 
     <div fxLayout="row" fxLayoutAlign="end center"> -->
 
-        <!-- CARD ATTACHMENT -->
-        <!-- <span *ngIf="card.attachments"
+<!-- CARD ATTACHMENT -->
+<!-- <span *ngIf="card.attachments"
               class="list-card-footer-item"
               fxLayout="row" fxLayoutAlign="start center">
             <mat-icon class="s-18">attachment</mat-icon>
             <span class="value">{{card.attachments.length}}</span>
         </span> -->
-        <!-- / CARD ATTACHMENT -->
+<!-- / CARD ATTACHMENT -->
 
-        <!-- CARD COMMENTS -->
-        <!-- <span *ngIf="card.comments"
+<!-- CARD COMMENTS -->
+<!-- <span *ngIf="card.comments"
               class="list-card-footer-item"
               fxLayout="row" fxLayoutAlign="start center">
             <mat-icon class="s-18">comment</mat-icon>
             <span class="value">{{card.comments.length}}</span>
         </span> -->
-        <!-- / CARD COMMENTS -->
+<!-- / CARD COMMENTS -->
 
-    <!-- </div>
+<!-- </div>
 </div> -->
 <!-- CARD FOOTER -->

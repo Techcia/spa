@@ -64,6 +64,7 @@ export class ScrumboardBoardListComponent implements OnInit, OnDestroy
             .subscribe(board => {
                 this.board = board;
             });
+            document.querySelector('toolbar').classList.add("d-none");
     }
 
     /**
@@ -74,6 +75,7 @@ export class ScrumboardBoardListComponent implements OnInit, OnDestroy
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
+        document.querySelector('toolbar').classList.remove("d-none");
     }
 
     // -----------------------------------------------------------------------------------------------------

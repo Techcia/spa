@@ -13,6 +13,7 @@ export class ScrumboardFakeDb {
                 {
                     'id': '56027cf5a2ca3839a5d36103',
                     'name': 'Não iniciado',
+                    'icon': 'alarm_off',
                     'idCards': [
                         '5603a2a3cab0c8300f6096b3',
                         '44d1.2b51ea6cc2b5d.21f4a3412e857.8ffa2d8b44ad9.ac87215ed53a1.67d4921ad8f8d.9f318bcb2'
@@ -21,6 +22,7 @@ export class ScrumboardFakeDb {
                 {
                     'id': '56127cf2a2ca3539g7d36103',
                     'name': 'Preparando',
+                    'icon': 'alarm',
                     'idCards': [
                         '2837273da9b93dd84243s0f9',
                         '5787b7e4740c57bf0dffd5b6',
@@ -31,6 +33,7 @@ export class ScrumboardFakeDb {
                 {
                     'id': 'faf244627326f1249525763d',
                     'name': 'Pronto',
+                    'icon': 'alarm_on',
                     'idCards': [
                         'd9005a4b89ed2aadca48a6ad',
                         'f6b9d7a9247e5d794a081927',
@@ -587,6 +590,7 @@ export class ScrumboardFakeDb {
                 {
                     'id': '56027cf5a2ca3839a5d36103',
                     'name': 'Não iniciado',
+                    'icon': 'alarm_off',
                     'idCards': [
                         '5603a2a3cab0c8300f6096b3',
                         '44d1.2b51ea6cc2b5d.21f4a3412e857.8ffa2d8b44ad9.ac87215ed53a1.67d4921ad8f8d.9f318bcb2'
@@ -595,6 +599,7 @@ export class ScrumboardFakeDb {
                 {
                     'id': '56127cf2a2ca3539g7d36103',
                     'name': 'Preparando',
+                    'icon': 'alarm',
                     'idCards': [
                         '2837273da9b93dd84243s0f9',
                         '5787b7e4740c57bf0dffd5b6',
@@ -605,6 +610,7 @@ export class ScrumboardFakeDb {
                 {
                     'id': 'faf244627326f1249525763d',
                     'name': 'Pronto',
+                    'icon': 'alarm_on',
                     'idCards': [
                         'd9005a4b89ed2aadca48a6ad',
                         'f6b9d7a9247e5d794a081927',

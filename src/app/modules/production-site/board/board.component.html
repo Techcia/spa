@@ -3,7 +3,7 @@
     <div id="board">
 
         <!-- HEADER -->
-        <div class="header p-16 p-md-24" [ngClass]="board.settings.color" fxLayout="column">
+        <div class="header" [ngClass]="board.settings.color" fxLayout="column">
 
             <div class="header-content" fxLayout="row wrap" fxLayoutAlign="space-between" fxFlex="1 0 auto">
 
@@ -13,7 +13,7 @@
                             [ngClass]="board.settings.color+'-800'"
                             routerLink="/production-site/boards"
                             aria-label="boards button">
-                        <mat-icon class="mr-8">assessment</mat-icon>
+                        <mat-icon class="mr-8">storefront</mat-icon>
                         <span>Locais</span>
                     </button>
                 </div>
@@ -50,10 +50,10 @@
         </div>
         <!-- / HEADER -->
 
-        <div fxFlex class="board-content-wrapper p-16 p-md-24">
+        <div fxFlex class="board-content-wrapper">
 
             <!-- BOARD -->
-            <div class="board-content ngx-dnd-container p-16 p-md-24" fxLayout="row"
+            <div class="board-content ngx-dnd-container" fxLayout="row"
                  ngxDroppable="list" [model]="board.lists" (out)="onDrop($event)"
                  [@animateStagger]="{value:'50'}">
 
@@ -69,10 +69,10 @@
                 <!-- / LIST -->
 
                 <!-- NEW LIST BUTTON-->
-                <scrumboard-board-add-list class="new-list-wrapper" (listAdded)="onListAdd($event)"
+                <!-- <scrumboard-board-add-list class="new-list-wrapper" (listAdded)="onListAdd($event)"
                                            ngxDraggable [moves]="false"
                                            [@animate]="{value:'*',params:{duration:'350ms',x:'100%'}}">
-                </scrumboard-board-add-list>
+                </scrumboard-board-add-list> -->
                 <!-- / NEW LIST BUTTON-->
 
             </div>

@@ -7,7 +7,7 @@ import { ScrumboardBoardComponent } from './board/board.component';
 
 const routes: Routes = [
   {
-    path: 'boards',
+    path: '',
     component: ProductionSiteComponent,
     resolve: {
       scrumboard: ProductionSiteService
@@ -22,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'boards'
+    redirectTo: ''
   }
 ];
 

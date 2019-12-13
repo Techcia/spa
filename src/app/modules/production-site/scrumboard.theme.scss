@@ -41,6 +41,7 @@
     #board {
       > .header {
         background-color: map-get($accent, default);
+        background-color: transparent;
         color: map-get($accent, default-contrast);
       }
     }
