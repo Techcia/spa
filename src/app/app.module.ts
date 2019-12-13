@@ -20,6 +20,7 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from './fake-db/fake-db.service';
+import { AuthenticationModule } from './modules/authentication/authentication.module';
 
 
 
@@ -56,6 +57,7 @@ import { FakeDbService } from './fake-db/fake-db.service';
             delay: 0,
             passThruUnknownUrl: true
         }),
+        AuthenticationModule
     ],
     bootstrap: [
         AppComponent

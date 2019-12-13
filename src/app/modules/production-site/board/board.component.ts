@@ -27,7 +27,7 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _location: Location,
-        private _scrumboardService: ProductionSiteService
+        private _scrumboardService: ProductionSiteService,
     )
     {
         // Set the private defaults

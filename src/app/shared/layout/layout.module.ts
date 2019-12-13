@@ -5,7 +5,6 @@ import { VerticalLayout2Module } from 'app/shared/layout/vertical/layout-2/layou
 import { VerticalLayout3Module } from 'app/shared/layout/vertical/layout-3/layout-3.module';
 
 import { HorizontalLayout1Module } from 'app/shared/layout/horizontal/layout-1/layout-1.module';
-import { FormModule } from './forms/form.module';
 
 @NgModule({
     imports: [
@@ -13,14 +12,12 @@ import { FormModule } from './forms/form.module';
         VerticalLayout2Module,
         VerticalLayout3Module,
         HorizontalLayout1Module,
-        FormModule,
     ],
     exports: [
         VerticalLayout1Module,
         VerticalLayout2Module,
         VerticalLayout3Module,
         HorizontalLayout1Module,
-        FormModule
     ],
     declarations: []
 })
