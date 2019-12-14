@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AuthenticationComponent } from './modules/authentication/authentication.component';
+import { Routes, RouterModule, CanActivate } from '@angular/router';
+import {
+  AuthGuardService as AuthGuard
+} from './modules/authentication/services/auth-guard.service';
 
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'authentication', pathMatch: 'full' },
   {
     path: 'production-site',
-    loadChildren: () => import('./modules/production-site/production-site.module').then(m => m.ProductionSiteModule)
+    loadChildren: () => import('./modules/production-site/production-site.module').then(m => m.ProductionSiteModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'authentication',
-    loadChildren: () => import('./modules/authentication/authentication.module').then(m => m.AuthenticationModule)
+    loadChildren: () => import('./modules/authentication/authentication.module').then(m => m.AuthenticationModule),
   },
 ];
 

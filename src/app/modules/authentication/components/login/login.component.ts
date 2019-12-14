@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,8 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  loginInvalid: boolean;
+  loginFailed: boolean;
 
   /**
    * Constructor
@@ -22,19 +25,38 @@ export class LoginComponent implements OnInit {
    */
   constructor(
     private _formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private auth: AuthenticationService
   ) { }
 
 
   ngOnInit(): void {
     this.loginForm = this._formBuilder.group({
-      username: ['', [Validators.required]],
-      password: ['', Validators.required]
+      username: ['jandisson', [Validators.required]],
+      password: ['abc123', Validators.required]
     });
+    localStorage.removeItem('access_token');
+    this.loginInvalid = false;
+    this.loginFailed = false;
   }
 
   loginSubmit() {
-    this.router.navigate(['production-site']);
+    if (!this.loginForm.valid)
+      return false;
+
+    const { username, password } = this.loginForm.value;
+    this.auth.login(username, password).subscribe(
+      res => { this.loginFailed = false; this.loginInvalid = false; },
+      err => {
+        if (err.status == 403) {
+          this.loginInvalid = true;
+          this.loginFailed = false;
+        } else {
+          this.loginFailed = true;
+          this.loginInvalid = false;
+        }
+      }
+    );
   }
 
 }

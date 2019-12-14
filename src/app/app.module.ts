@@ -20,7 +20,11 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from './fake-db/fake-db.service';
-import { AuthenticationModule } from './modules/authentication/authentication.module';
+import { JwtModule } from "@auth0/angular-jwt";
+
+export function tokenGetter() {
+    return localStorage.getItem("access_token");
+}
 
 
 
@@ -57,12 +61,20 @@ import { AuthenticationModule } from './modules/authentication/authentication.mo
             delay: 0,
             passThruUnknownUrl: true
         }),
-        AuthenticationModule
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                whitelistedDomains: ["54.233.137.141:8100"],
+                blacklistedRoutes: [""]
+            }
+        })
     ],
     bootstrap: [
         AppComponent
     ],
-    providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },]
+    providers: [
+        { provide: LocationStrategy, useClass: HashLocationStrategy }
+    ]
 })
 export class AppModule {
 }

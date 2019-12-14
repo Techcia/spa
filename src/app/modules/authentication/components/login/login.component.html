@@ -10,6 +10,10 @@
 
             <div class="title">Login</div>
 
+            <div [hidden]="!loginInvalid" class="text-danger message-error">Usuário ou senha inválido</div>
+            <div [hidden]="!loginFailed" class="text-danger  message-error">Não foi possível realizar a autentificação
+            </div>
+
             <form name="loginForm" [formGroup]="loginForm" (ngSubmit)="loginSubmit()" novalidate>
 
                 <mat-form-field appearance="outline">
