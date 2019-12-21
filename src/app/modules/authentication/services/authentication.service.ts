@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of, throwError, Subject, BehaviorSubject } from 'rxjs';
 import { environment } from 'environments/environment';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -21,11 +21,18 @@ export class AuthenticationService {
   ) { }
 
   login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(this.url, { username: username, password: password })
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': "Basic " + btoa(username + ":" + password)
+      })
+    };
+
+    return this.http.post<any>(this.url, {}, httpOptions)
       .pipe(
         map(res => {
-          if (res.token) {
-            localStorage.setItem('access_token', JSON.stringify(res.token));
+          if (res.access_token) {
+            localStorage.setItem('access_token', JSON.stringify(res.access_token));
             this.router.navigate(['production-site']);
           }
           return res;

@@ -163,13 +163,10 @@ export class ProductionSiteService {
    *
    * @returns {Promise<any>}
    */
-  updateBoard(): Promise<any> {
+  updateBoard() {
     return new Promise((resolve, reject) => {
-      this._httpClient.post('api/scrumboard-boards/' + this.board.id, this.board)
-        .subscribe(response => {
-          this.onBoardChanged.next(this.board);
-          resolve(this.board);
-        }, reject);
+      console.log(this.board);
+      resolve(this.board);
     });
   }
 
@@ -224,6 +221,7 @@ export class BoardResolve implements Resolve<any>
    * @returns {Promise<any>}
    */
   resolve(route: ActivatedRouteSnapshot): Promise<any> {
-    return this._scrumboardService.getBoard(route.paramMap.get('boardId'));
+    return;
+    // return this._scrumboardService.getBoard(route.paramMap.get('boardId'));
   }
 }

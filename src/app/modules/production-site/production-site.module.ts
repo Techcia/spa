@@ -36,6 +36,7 @@ import { ScrumboardLabelSelectorComponent } from './board/dialogs/card/label-sel
 import { ScrumboardEditBoardNameComponent } from './board/edit-board-name/edit-board-name.component';
 import { ScrumboardBoardSettingsSidenavComponent } from './board/sidenavs/settings/settings.component';
 import { ScrumboardBoardColorSelectorComponent } from './board/sidenavs/settings/board-color-selector/board-color-selector.component';
+import { WebSocketService } from './services/web-socket.service';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { ScrumboardBoardColorSelectorComponent } from './board/sidenavs/settings
   ],
   providers: [
     ProductionSiteService,
-    BoardResolve
+    BoardResolve,
+    WebSocketService
   ],
   entryComponents: [ScrumboardCardDialogComponent]
 })

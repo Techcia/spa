@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
@@ -9,6 +9,7 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 import { navigation } from 'app/core/navigation/navigation';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'app/modules/authentication/services/authentication.service';
 
 @Component({
     selector: 'toolbar',
@@ -25,6 +26,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     navigation: any;
     selectedLanguage: any;
     userStatusOptions: any[];
+    nameUser: string = "";
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -40,7 +42,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         private _fuseConfigService: FuseConfigService,
         private _fuseSidebarService: FuseSidebarService,
         private _translateService: TranslateService,
-        private router: Router
+        private router: Router,
+        private auth: AuthenticationService
     ) {
         // Set the defaults
         this.userStatusOptions = [
@@ -157,6 +160,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     }
 
     logout() {
-        this.router.navigate(['authentication/login']);
+        this.auth.logout();
     }
 }

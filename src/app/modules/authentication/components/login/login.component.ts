@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this._formBuilder.group({
-      username: ['jandisson', [Validators.required]],
-      password: ['abc123', Validators.required]
+      username: ['', [Validators.required]],
+      password: ['', Validators.required]
     });
     localStorage.removeItem('access_token');
     this.loginInvalid = false;
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(username, password).subscribe(
       res => { this.loginFailed = false; this.loginInvalid = false; },
       err => {
-        if (err.status == 403) {
+        if (err.status == 401) {
           this.loginInvalid = true;
           this.loginFailed = false;
         } else {

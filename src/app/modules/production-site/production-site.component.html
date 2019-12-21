@@ -4,6 +4,7 @@
     <div class="header pt-44 pt-md-88" fxLayout="row" fxLayoutAlign="center center" fxFlex="0 0 auto"
         [@animate]="{value:'*',params:{delay:'100ms'}}">
         <h1>Locais de Produção</h1>
+        <button (click)="sendMessage()" class="btn btn-primary">Teste</button>
     </div>
 
     <!-- BOARD LIST -->
@@ -11,11 +12,12 @@
         [@animateStagger]="{value:'50'}">
 
         <!-- BOARD -->
-        <div class="board-list-item" *ngFor="let board of boards"
-            [routerLink]="'/production-site/boards/'+board.id+'/'+board.uri" fxLayout="column"
-            fxLayoutAlign="center center" [@animate]="{value:'*',params:{y:'100%'}}">
+        <div class="board-list-item" *ngFor="let productionSite of productionSites" fxLayout="column"
+            fxLayoutAlign="center center"
+            [routerLink]="'/production-site/boards/'+productionSite.name+'/'+productionSite.id"
+            [@animate]="{value:'*',params:{y:'100%'}}">
             <mat-icon class="s-56">storefront</mat-icon>
-            <div class="board-name">{{board.name}}</div>
+            <div class="board-name">{{productionSite.name}}</div>
         </div>
         <!-- / BOARD -->
 

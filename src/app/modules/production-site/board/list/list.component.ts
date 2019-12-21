@@ -1,164 +1,50 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
+import { Subject, Subscribable, Subscription, BehaviorSubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
-import { ProductionSiteService } from '../../production-site.service';
+import { ProductionSiteService } from '../../services/production-site.service';
 import { ScrumboardCardDialogComponent } from '../dialogs/card/card.component';
 import { Card } from '../../card.model';
 
 
 @Component({
-    selector     : 'scrumboard-board-list',
-    templateUrl  : './list.component.html',
-    styleUrls    : ['./list.component.scss'],
+    selector: 'scrumboard-board-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class ScrumboardBoardListComponent implements OnInit, OnDestroy
-{
+export class ScrumboardBoardListComponent implements OnInit, OnDestroy {
     board: any;
     dialogRef: any;
 
-    @Input()
-    list;
+    @Input() list;
+    @Input() cards: BehaviorSubject<Card[]>;
+    cardsSubscription: Subscription;
 
-    @ViewChild(FusePerfectScrollbarDirective, {static: false})
+    @ViewChild(FusePerfectScrollbarDirective, { static: false })
     listScroll: FusePerfectScrollbarDirective;
+    constructor(private ptService: ProductionSiteService) { }
 
-    confirmDialogRef: MatDialogRef<FuseConfirmDialogComponent>;
-
-    // Private
-    private _unsubscribeAll: Subject<any>;
-
-    /**
-     * Constructor
-     *
-     * @param {ActivatedRoute} _activatedRoute
-     * @param {ScrumboardService} _scrumboardService
-     * @param {MatDialog} _matDialog
-     */
-    constructor(
-        private _activatedRoute: ActivatedRoute,
-        private _scrumboardService: ProductionSiteService,
-        private _matDialog: MatDialog
-    )
-    {
-        // Set the private defaults
-        this._unsubscribeAll = new Subject();
+    ngOnInit(): void {
+        this.cardsSubscription = this.cards.subscribe(cards => cards);
+        document.querySelector('toolbar').classList.add("d-none");
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
-    ngOnInit(): void
-    {
-        this._scrumboardService.onBoardChanged
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(board => {
-                this.board = board;
-            });
-            document.querySelector('toolbar').classList.add("d-none");
-    }
-
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void
-    {
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
-        this._unsubscribeAll.complete();
+    ngOnDestroy(): void {
+        this.cardsSubscription.unsubscribe();
         document.querySelector('toolbar').classList.remove("d-none");
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * On list name changed
-     *
-     * @param newListName
-     */
-    onListNameChanged(newListName): void
-    {
+    onListNameChanged(newListName): void {
         this.list.name = newListName;
     }
 
-    /**
-     * On card added
-     *
-     * @param newCardName
-     */
-    onCardAdd(newCardName): void
-    {
-        if ( newCardName === '' )
-        {
-            return;
-        }
-
-        this._scrumboardService.addCard(this.list.id, new Card({name: newCardName}));
-
-        setTimeout(() => {
-            this.listScroll.scrollToBottom(0, 400);
-        });
-    }
-
-    /**
-     * Remove list
-     *
-     * @param listId
-     */
-    removeList(listId): void
-    {
-        this.confirmDialogRef = this._matDialog.open(FuseConfirmDialogComponent, {
-            disableClose: false
-        });
-
-        this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete the list and it\'s all cards?';
-
-        this.confirmDialogRef.afterClosed().subscribe(result => {
-            if ( result )
-            {
-                this._scrumboardService.removeList(listId);
-            }
-        });
-    }
-
-    /**
-     * Open card dialog
-     *
-     * @param cardId
-     */
-    openCardDialog(cardId): void
-    {
-        this.dialogRef = this._matDialog.open(ScrumboardCardDialogComponent, {
-            panelClass: 'scrumboard-card-dialog',
-            data      : {
-                cardId: cardId,
-                listId: this.list.id
-            }
-        });
-        this.dialogRef.afterClosed()
-            .subscribe(response => {
-
-            });
-    }
-
-    /**
-     * On drop
-     *
-     * @param ev
-     */
-    onDrop(ev): void
-    {
-        this._scrumboardService.updateBoard();
+    onDrop(ev): void {
+        this.ptService.changeStatus(ev.value.id, this.list.status);
     }
 }

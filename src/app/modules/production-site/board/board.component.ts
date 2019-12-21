@@ -1,102 +1,67 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, from, pipe, concat, BehaviorSubject } from 'rxjs';
+import { takeUntil, groupBy, mergeMap, toArray, map, filter, concatAll, concatMap } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
-import { ProductionSiteService } from '../production-site.service';
+//import { ProductionSiteService } from '../production-site.service';
 import { List } from '../list.model';
+import { ProductionSiteService } from '../services/production-site.service';
+import { Card } from '../card.model';
 
 
 
 @Component({
-    selector     : 'scrumboard-board',
-    templateUrl  : './board.component.html',
-    styleUrls    : ['./board.component.scss'],
+    selector: 'scrumboard-board',
+    templateUrl: './board.component.html',
+    styleUrls: ['./board.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations: fuseAnimations
 })
-export class ScrumboardBoardComponent implements OnInit, OnDestroy
-{
+export class ScrumboardBoardComponent implements OnInit, OnDestroy {
     board: any;
 
+    done = new BehaviorSubject<Card[]>([]);
+    doing = new BehaviorSubject<Card[]>([]);
+    todo = new BehaviorSubject<Card[]>([]);
+
     // Private
-    private _unsubscribeAll: Subject<any>;
 
     constructor(
-        private _activatedRoute: ActivatedRoute,
-        private _location: Location,
-        private _scrumboardService: ProductionSiteService,
-    )
-    {
-        // Set the private defaults
-        this._unsubscribeAll = new Subject();
+        private productionSiteService: ProductionSiteService,
+        private activatedRoute: ActivatedRoute
+    ) {
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
-    ngOnInit(): void
-    {
-        this._scrumboardService.onBoardChanged
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe(board => {
-                this.board = board;
-            });
+    ngOnInit(): void {
+        const id = this.activatedRoute.snapshot.params.boardId;
+        const name = this.activatedRoute.snapshot.params.boardName;
+        this.board = {
+            name: name,
+            lists: [
+                { id: 1, name: 'Não iniciado', icon: 'alarm_off', status: "TODO" },
+                { id: 2, name: 'Preparando', icon: 'alarm', status: "DOING" },
+                { id: 3, name: 'Pronto', icon: 'alarm_on', status: "DONE" }
+            ]
+        };
+        this.getCards(id);
     }
 
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void
-    {
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next();
-        this._unsubscribeAll.complete();
+    ngOnDestroy(): void {
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On list add
-     *
-     * @param newListName
-     */
-    onListAdd(newListName): void
-    {
-        if ( newListName === '' )
-        {
-            return;
-        }
-
-        this._scrumboardService.addList(new List({name: newListName}));
-    }
-
-    /**
-     * On board name changed
-     *
-     * @param newName
-     */
-    onBoardNameChanged(newName): void
-    {
-        this._scrumboardService.updateBoard();
-        this._location.go('/production-site/boards/' + this.board.id + '/' + this.board.uri);
-    }
-
-    /**
-     * On drop
-     *
-     * @param ev
-     */
-    onDrop(ev): void
-    {
-        this._scrumboardService.updateBoard();
+    getCards(id: number) {
+        let done = [];
+        let doing = [];
+        let todo = [];
+        this.productionSiteService.getCardsBySite(id).subscribe(cards => {
+            from(cards).pipe(filter(cards => { return cards.status === 'TODO' })).subscribe(res => todo.push(res));
+            from(cards).pipe(filter(cards => { return cards.status === 'DOING' })).subscribe(res => doing.push(res));
+            from(cards).pipe(filter(cards => { return cards.status === 'DONE' })).subscribe(res => done.push(res));
+            this.todo.next(todo);
+            this.doing.next(doing);
+            this.done.next(done);
+        });
     }
 }

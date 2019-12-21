@@ -5,8 +5,9 @@
 export const environment = {
     production: false,
     hmr: false,
-    apiUrl: 'http://54.233.137.141:8100'
-
+    apiUrl: 'http://54.233.137.141:8100',
+    apiProductionSite: "http://52.67.198.2:8080",
+    ws_url: 'http://127.0.0.1:5000'
 };
 
 /*

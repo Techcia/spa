@@ -1,59 +1,33 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-
 @Component({
-    selector     : 'scrumboard-board-card',
-    templateUrl  : './card.component.html',
-    styleUrls    : ['./card.component.scss'],
+    selector: 'scrumboard-board-card',
+    templateUrl: './card.component.html',
+    styleUrls: ['./card.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class ScrumboardBoardCardComponent implements OnInit
-{
-    @Input()
-    cardId;
+export class ScrumboardBoardCardComponent implements OnInit {
+    @Input() card;
+    time = '00:00';
+    constructor() { }
 
-    card: any;
-    board: any;
+    ngOnInit(): void {
 
-    /**
-     * Constructor
-     *
-     * @param {ActivatedRoute} _activatedRoute
-     */
-    constructor(
-        private _activatedRoute: ActivatedRoute
-    )
-    {
+
+        this.timeCard();
+        setInterval(() => {
+            this.timeCard();
+        }, 5000)
+
+        // console.log(moment.utc(moment(now, "DD/MM/YYYY HH:mm:ss").diff(this.card.date)).format("HH:mm:ss"))
+
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
-    ngOnInit(): void
-    {
-        this.board = this._activatedRoute.snapshot.data.board;
-        this.card = this.board.cards.filter((card) => {
-            return this.cardId === card.id;
-        })[0];
-    }
-
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Is the card overdue?
-     *
-     * @param cardDate
-     * @returns {boolean}
-     */
-    isOverdue(cardDate): boolean
-    {
-        return moment() > moment(new Date(cardDate));
+    timeCard() {
+        var duration = moment.duration(moment().diff(moment(this.card.date)));
+        var hours = duration.asHours().toFixed(2);
+        let str = hours.toString().split('.');
+        let minutes = (60 * parseInt(str[1])) / 100;
+        this.time = str[0] + ":" + Math.round(minutes).toString();
     }
 }

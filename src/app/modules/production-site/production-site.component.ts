@@ -4,8 +4,10 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
-import { ProductionSiteService } from './production-site.service';
+// import { ProductionSiteService } from './production-site.service';
 import { Board } from './board.model';
+import { ProductionSite } from './models/production-site';
+import { ProductionSiteService } from './services/production-site.service';
 
 @Component({
   selector: 'app-production-site',
@@ -16,6 +18,7 @@ import { Board } from './board.model';
 })
 export class ProductionSiteComponent implements OnInit, OnDestroy {
   boards: any[];
+  productionSites: ProductionSite[];
 
   // Private
   private _unsubscribeAll: Subject<any>;
@@ -28,47 +31,35 @@ export class ProductionSiteComponent implements OnInit, OnDestroy {
    */
   constructor(
     private _router: Router,
-    private _scrumboardService: ProductionSiteService
+    private productionSiteService: ProductionSiteService
   ) {
     // Set the private defaults
     this._unsubscribeAll = new Subject();
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
   ngOnInit(): void {
-    this._scrumboardService.onBoardsChanged
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(boards => {
-        this.boards = boards;
-      });
+    this.productionSiteService.messages.subscribe(msg => {
+      console.log(msg);
+    })
+    this.getListProductionSite();
   }
 
-  /**
-   * On destroy
-   */
+
   ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
+  sendMessage() {
+    this.productionSiteService.sendMsg("Test Message");
+  }
 
-  /**
-   * New board
-   */
-  newBoard(): void {
-    const newBoard = new Board({});
-    this._scrumboardService.createNewBoard(newBoard).then(() => {
-      this._router.navigate(['/production-site/boards/' + newBoard.id + '/' + newBoard.uri]);
+  getListProductionSite() {
+    this.productionSiteService.getListProductionSite().subscribe(ps => {
+      this.productionSites = ps as ProductionSite[];
     });
   }
+
+  
+
 }
