@@ -8,6 +8,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { Board } from './board.model';
 import { ProductionSite } from './models/production-site';
 import { ProductionSiteService } from './services/production-site.service';
+import { WebSocketService } from './services/web-socket.service';
 
 @Component({
   selector: 'app-production-site',
@@ -31,16 +32,17 @@ export class ProductionSiteComponent implements OnInit, OnDestroy {
    */
   constructor(
     private _router: Router,
-    private productionSiteService: ProductionSiteService
+    private productionSiteService: ProductionSiteService,
+    
   ) {
     // Set the private defaults
     this._unsubscribeAll = new Subject();
   }
 
   ngOnInit(): void {
-    this.productionSiteService.messages.subscribe(msg => {
-      console.log(msg);
-    })
+  
+
+
     this.getListProductionSite();
   }
 
@@ -50,16 +52,11 @@ export class ProductionSiteComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  sendMessage() {
-    this.productionSiteService.sendMsg("Test Message");
-  }
 
   getListProductionSite() {
     this.productionSiteService.getListProductionSite().subscribe(ps => {
       this.productionSites = ps as ProductionSite[];
     });
   }
-
-  
 
 }

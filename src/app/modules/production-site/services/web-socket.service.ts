@@ -1,45 +1,39 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment';
-import * as io from 'socket.io-client';
-import { Observable } from 'rxjs';
-import * as Rx from 'rxjs';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+import { Subject, of, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
+  webSocketEndPoint: string = 'http://52.67.198.2:8080/ws';
+  stompClient: any;
+  public messages: BehaviorSubject<any> = null;
 
-  // Our socket connection
-  private socket;
-  constructor() { }
-
-  connect(): Rx.Subject<MessageEvent> {
-    // If you aren't familiar with environment variables then
-    // you can hard code `environment.ws_url` as `http://localhost:5000`
-    this.socket = io(environment.ws_url);
-
-    // We define our observable which will observe any incoming messages
-    // from our socket.io server.
-    let observable = new Observable(observer => {
-      this.socket.on('message', (data) => {
-        console.log("Received message from Websocket Server")
-        observer.next(data);
-      })
-      return () => {
-        this.socket.disconnect();
-      }
-    });
-
-    // We define our Observer which will listen to messages
-    // from our other components and send messages back to our
-    // socket server whenever the `next()` method is called.
-    let observer = {
-      next: (data: Object) => {
-        this.socket.emit('message', JSON.stringify(data));
-      },
-    };
-
-    // we return our Rx.Subject which is a combination
-    // of both an observer and observable.
-    return Rx.Subject.create(observer, observable);
+  constructor() {
   }
+
+  initializingConnection(idPs: number) {
+    console.log("Inicializando conexão");
+    this.messages = new BehaviorSubject(null);
+    let ws = new SockJS(this.webSocketEndPoint);
+    this.stompClient = Stomp.over(ws);
+    this.stompClient.connect({}, () => { this.connectProductionSite(idPs) }, () => { console.log("Não conectou") });
+  };
+
+  connectProductionSite(idPs: number) {
+    let stomp_subscription = this.stompClient.subscribe('/ps/' + idPs, (message) => {
+      this.messages.next(JSON.parse(message.body));
+    });
+  }
+
+  disconnect() {
+    if (this.stompClient !== undefined) {
+      this.stompClient.disconnect();
+      this.messages = null;
+    }
+  }
+
 }
+

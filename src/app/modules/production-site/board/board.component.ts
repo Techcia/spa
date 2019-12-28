@@ -1,14 +1,15 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, from, pipe, concat, BehaviorSubject } from 'rxjs';
-import { takeUntil, groupBy, mergeMap, toArray, map, filter, concatAll, concatMap } from 'rxjs/operators';
+import { Subject, from, pipe, concat, BehaviorSubject, Subscription, of } from 'rxjs';
+import { takeUntil, groupBy, mergeMap, toArray, map, filter, concatAll, concatMap, find, debounceTime } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
 //import { ProductionSiteService } from '../production-site.service';
 import { List } from '../list.model';
 import { ProductionSiteService } from '../services/production-site.service';
 import { Card } from '../card.model';
+import { WebSocketService } from '../services/web-socket.service';
 
 
 
@@ -21,21 +22,27 @@ import { Card } from '../card.model';
 })
 export class ScrumboardBoardComponent implements OnInit, OnDestroy {
     board: any;
+    idPs: number;
+    cardsSubject: BehaviorSubject<Card[]> = new BehaviorSubject<Card[]>(null);
+    cards: Card[];
 
-    done = new BehaviorSubject<Card[]>([]);
-    doing = new BehaviorSubject<Card[]>([]);
-    todo = new BehaviorSubject<Card[]>([]);
+    messageSubscription: Subscription;
+
+    done = [];
+    doing = [];
+    todo = [];
 
     // Private
 
     constructor(
         private productionSiteService: ProductionSiteService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private ws: WebSocketService
     ) {
     }
 
     ngOnInit(): void {
-        const id = this.activatedRoute.snapshot.params.boardId;
+        this.idPs = this.activatedRoute.snapshot.params.boardId;
         const name = this.activatedRoute.snapshot.params.boardName;
         this.board = {
             name: name,
@@ -45,23 +52,34 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
                 { id: 3, name: 'Pronto', icon: 'alarm_on', status: "DONE" }
             ]
         };
-        this.getCards(id);
+        this.getCards(this.idPs);
     }
 
     ngOnDestroy(): void {
+        this.ws.disconnect();
+        this.messageSubscription.unsubscribe();
     }
 
     getCards(id: number) {
-        let done = [];
-        let doing = [];
-        let todo = [];
-        this.productionSiteService.getCardsBySite(id).subscribe(cards => {
-            from(cards).pipe(filter(cards => { return cards.status === 'TODO' })).subscribe(res => todo.push(res));
-            from(cards).pipe(filter(cards => { return cards.status === 'DOING' })).subscribe(res => doing.push(res));
-            from(cards).pipe(filter(cards => { return cards.status === 'DONE' })).subscribe(res => done.push(res));
-            this.todo.next(todo);
-            this.doing.next(doing);
-            this.done.next(done);
+
+        this.productionSiteService.getCardsBySite(id).subscribe((cards: any) => {
+            this.cardsSubject.next(cards);
+            this.socketTodo();
         });
+        this.cardsSubject.subscribe(cards => this.cards = cards);
+    }
+    socketTodo() {
+        this.ws.initializingConnection(this.idPs);
+        this.messageSubscription = this.ws.messages.subscribe(message => {
+            if (message != null) {
+                this.cards.push(message);
+                this.cardsSubject.next(this.cards);
+            }
+        })
+    }
+
+    onDropCard(event: any) {
+        let card = event.card;
+        let statusNew = event.status;
     }
 }

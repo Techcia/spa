@@ -1,8 +1,8 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Subject, Subscribable, Subscription, BehaviorSubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, Subscribable, Subscription, BehaviorSubject, from, of } from 'rxjs';
+import { takeUntil, filter, debounceTime } from 'rxjs/operators';
 
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
@@ -23,19 +23,27 @@ export class ScrumboardBoardListComponent implements OnInit, OnDestroy {
 
     @Input() list;
     @Input() cards: BehaviorSubject<Card[]>;
+    @Input() type: string;
+    @Output() onDropCard = new EventEmitter<any>();
     cardsSubscription: Subscription;
+    dataSource: Card[];
 
     @ViewChild(FusePerfectScrollbarDirective, { static: false })
     listScroll: FusePerfectScrollbarDirective;
     constructor(private ptService: ProductionSiteService) { }
 
     ngOnInit(): void {
-        this.cardsSubscription = this.cards.subscribe(cards => cards);
+        this.cardsSubscription = this.cards.subscribe(cards => {
+            this.dataSource = [];
+            if (cards != null) {
+                from(cards).pipe(filter((cards: any) => cards.status == this.type)).subscribe(res => this.dataSource.push(res));
+            }
+        });
         document.querySelector('toolbar').classList.add("d-none");
     }
 
     ngOnDestroy(): void {
-        this.cardsSubscription.unsubscribe();
+        // this.cardsSubscription.unsubscribe();
         document.querySelector('toolbar').classList.remove("d-none");
     }
 
@@ -45,6 +53,8 @@ export class ScrumboardBoardListComponent implements OnInit, OnDestroy {
     }
 
     onDrop(ev): void {
-        this.ptService.changeStatus(ev.value.id, this.list.status);
+        ev.value.status = this.list.status;
+        this.ptService.changeStatus(ev.value.id, this.list.status).subscribe(() => {
+        })
     }
 }

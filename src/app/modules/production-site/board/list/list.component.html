@@ -9,11 +9,10 @@
 
     <!-- LIST CONTENT -->
     <div class="list-content" fxLayout="column">
-        <div class="list-cards ngx-dnd-container" ngxDroppable="card" (out)="onDrop($event)"
-            fusePerfectScrollbar #listScroll>
-            <!-- <scrumboard-board-card ngxDraggable (click)="openCardDialog(cardId)" -->
+        <div class="list-cards ngx-dnd-container" ngxDroppable="card" (out)="onDrop($event)" fusePerfectScrollbar
+            #listScroll>
             <scrumboard-board-card ngxDraggable class="scrumboard-board-card ngx-dnd-item"
-                *ngFor="let card of (cards | async)" [card]="card" [model]="card">
+                *ngFor="let card of dataSource" [card]="card" [model]="card">
             </scrumboard-board-card>
         </div>
     </div>

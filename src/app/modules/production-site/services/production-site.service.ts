@@ -7,24 +7,16 @@ import { Card } from '../models/card';
 import { WebSocketService } from './web-socket.service';
 import { map } from 'rxjs/operators';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProductionSiteService {
 
-  messages: Subject<any>;
+  public messages: Subject<any>;
 
-  constructor(private http: HttpClient, private wsService: WebSocketService) {
-    this.messages = <Subject<any>>wsService
-      .connect()
-      .pipe(
-        map((response: any): any => {
-          return response;
-        }))
-  }
+  constructor(private http: HttpClient) {
 
-  sendMsg(msg) {
-    this.messages.next(msg);
   }
 
   getListProductionSite(): Observable<ProductionSite[]> {
@@ -37,8 +29,6 @@ export class ProductionSiteService {
   }
 
   changeStatus(id: number, status: string) {
-    return this.http.post<Card[]>(environment.apiProductionSite + '/card/changeStatus/' + id + '/' + status, {}).subscribe(res => {
-      return
-    });
+    return this.http.post<Card[]>(environment.apiProductionSite + '/card/changeStatus/' + id + '/' + status, {});
   }
 }

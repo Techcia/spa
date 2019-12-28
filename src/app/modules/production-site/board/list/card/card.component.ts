@@ -28,6 +28,25 @@ export class ScrumboardBoardCardComponent implements OnInit {
         var hours = duration.asHours().toFixed(2);
         let str = hours.toString().split('.');
         let minutes = (60 * parseInt(str[1])) / 100;
-        this.time = str[0] + ":" + Math.round(minutes).toString();
+
+        let minutesStr = '00';
+        if (minutes < 10) {
+            minutesStr = '0' + Math.round(minutes).toString();
+        } else {
+            minutesStr = Math.round(minutes).toString();
+        }
+
+        let hourStr = '00';
+        if (parseInt(str[0]) < 10 && parseInt(str[0]) >= 0) {
+            hourStr = '0' + Math.abs(parseInt(str[0])).toString();
+        } else if (parseInt(str[0]) > -10 && parseInt(str[0]) < 0) {
+            hourStr = '-0' + Math.abs(parseInt(str[0])).toString();
+        } else if (parseInt(str[0]) <= -10) {
+            hourStr = '-' + Math.abs(parseInt(str[0])).toString();
+        } else {
+            hourStr = Math.abs(parseInt(str[0])).toString();
+        }
+
+        this.time = hourStr + ":" + minutesStr;
     }
 }

@@ -10,6 +10,7 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { navigation } from 'app/core/navigation/navigation';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'app/modules/authentication/services/authentication.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
     selector: 'toolbar',
@@ -43,7 +44,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         private _fuseSidebarService: FuseSidebarService,
         private _translateService: TranslateService,
         private router: Router,
-        private auth: AuthenticationService
+        private auth: AuthenticationService,
+        public jwtHelper: JwtHelperService
     ) {
         // Set the defaults
         this.userStatusOptions = [
@@ -112,6 +114,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
         // Set the selected language from default languages
         this.selectedLanguage = _.find(this.languages, { id: this._translateService.currentLang });
+        if (localStorage.getItem('access_token') != null) {
+            const decodedToken = this.jwtHelper.decodeToken(localStorage.getItem('access_token'));
+            this.nameUser = decodedToken.firstname;
+        }
+
     }
 
     /**

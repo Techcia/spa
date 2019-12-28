@@ -6,6 +6,7 @@ export class Card {
     description: string;
     cliente: string;
     date: string;
+    status: string;
     idAttachmentCover: string;
     idMembers: string[];
     idLabels: string[];
