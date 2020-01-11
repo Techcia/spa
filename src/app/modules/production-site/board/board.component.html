@@ -5,11 +5,13 @@
             <div class="header-content" fxLayout="row wrap" fxLayoutAlign="space-between" fxFlex="1 0 auto">
                 <!-- BOARD SELECTION BUTTON -->
                 <div fxLayout="row" fxLayoutAlign="center center" fxFlexOrder="2" fxFlexOrder.gt-xs="1">
-                    <button mat-raised-button class="header-boards-button" [ngClass]="'fuse-dark-800'"
-                        routerLink="/production-site/boards" aria-label="boards button">
-                        <mat-icon class="mr-8">storefront</mat-icon>
-                        <span>Locais</span>
-                    </button>
+                    <a routerLink="/production-site/boards">
+                        <button mat-raised-button class="header-boards-button" [ngClass]="'fuse-dark-800'"
+                            aria-label="boards button">
+                            <mat-icon class="mr-8">storefront</mat-icon>
+                            <span>Locais</span>
+                        </button>
+                    </a>
                 </div>
                 <!-- / BOARD SELECTION BUTTON -->
 

@@ -5,9 +5,9 @@
 export const environment = {
     production: false,
     hmr: false,
-    apiUrl: 'http://54.233.137.141:8100',
-    apiProductionSite: "http://52.67.198.2:8080",
-    ws_url: 'http://52.67.198.2:8080/ps/1'
+    apiUrl: 'https://sales.db2s.digital',
+    apiProductionSite: "http://18.228.21.25:8080",
+    ws_url: 'http://18.228.21.25:8080/ws'
 };
 
 /*

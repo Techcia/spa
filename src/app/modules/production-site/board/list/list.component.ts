@@ -28,6 +28,8 @@ export class ScrumboardBoardListComponent implements OnInit, OnDestroy {
     cardsSubscription: Subscription;
     dataSource: Card[];
 
+    @Input() updateCard: BehaviorSubject<Card>;
+
     @ViewChild(FusePerfectScrollbarDirective, { static: false })
     listScroll: FusePerfectScrollbarDirective;
     constructor(private ptService: ProductionSiteService) { }
@@ -43,7 +45,9 @@ export class ScrumboardBoardListComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        // this.cardsSubscription.unsubscribe();
+        if (this.cardsSubscription) {
+            this.cardsSubscription.unsubscribe();
+        }
         document.querySelector('toolbar').classList.remove("d-none");
     }
 

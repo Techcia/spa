@@ -70,10 +70,13 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
     }
     socketTodo() {
         this.ws.initializingConnection(this.idPs);
-        this.messageSubscription = this.ws.messages.subscribe(message => {
+        this.messageSubscription = this.ws.messages.pipe(debounceTime(500)).subscribe(message => {
             if (message != null) {
-                this.cards.push(message);
-                this.cardsSubject.next(this.cards);
+                let card = this.cards.findIndex(card => card.id == message.id);
+                if (card == -1) {
+                    this.cards.push(message);
+                    this.cardsSubject.next(this.cards);
+                }
             }
         })
     }

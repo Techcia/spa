@@ -3,11 +3,12 @@ import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { Subject, of, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
-  webSocketEndPoint: string = 'http://52.67.198.2:8080/ws';
+  webSocketEndPoint: string = environment.ws_url;
   stompClient: any;
   public messages: BehaviorSubject<any> = null;
 
