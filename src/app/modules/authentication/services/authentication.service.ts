@@ -32,7 +32,7 @@ export class AuthenticationService {
       .pipe(
         map(res => {
           if (res.access_token) {
-            localStorage.setItem('access_token', JSON.stringify(res.access_token));
+            localStorage.setItem('access_token', res.access_token);
             this.router.navigate(['production-site']);
           }
           return res;

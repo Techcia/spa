@@ -31,4 +31,8 @@ export class ProductionSiteService {
   changeStatus(id: number, status: string) {
     return this.http.post<Card[]>(environment.apiProductionSite + '/card/changeStatus/' + id + '/' + status, {});
   }
+
+  reprintNote(card: any) {
+    return this.http.get(environment.apiProductionSite + '/card/print/' + card.id);
+  }
 }

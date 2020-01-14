@@ -1,5 +1,8 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import * as moment from 'moment';
+import { ProductionSiteService } from 'app/modules/production-site/services/production-site.service';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { ModalSuccessReprintComponent } from 'app/modules/production-site/components/modal-success-reprint/modal-success-reprint.component';
 @Component({
     selector: 'scrumboard-board-card',
     templateUrl: './card.component.html',
@@ -9,7 +12,8 @@ import * as moment from 'moment';
 export class ScrumboardBoardCardComponent implements OnInit {
     @Input() card;
     time = '00:00';
-    constructor() { }
+    confirmDialogRef: MatDialogRef<ModalSuccessReprintComponent>;
+    constructor(private psService: ProductionSiteService, public _matDialog: MatDialog, ) { }
 
     ngOnInit(): void {
 
@@ -49,4 +53,16 @@ export class ScrumboardBoardCardComponent implements OnInit {
 
         this.time = hourStr + ":" + minutesStr;
     }
+
+    reprintNote() {
+  
+        this.psService.reprintNote(this.card).subscribe(res => {
+            this.openModal();
+        });
+    }
+
+    openModal() {
+        const dialogRef = this._matDialog.open(ModalSuccessReprintComponent);
+    }
+
 }

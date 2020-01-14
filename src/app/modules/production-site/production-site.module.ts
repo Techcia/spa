@@ -37,6 +37,7 @@ import { ScrumboardEditBoardNameComponent } from './board/edit-board-name/edit-b
 import { ScrumboardBoardSettingsSidenavComponent } from './board/sidenavs/settings/settings.component';
 import { ScrumboardBoardColorSelectorComponent } from './board/sidenavs/settings/board-color-selector/board-color-selector.component';
 import { WebSocketService } from './services/web-socket.service';
+import { ModalSuccessReprintComponent } from './components/modal-success-reprint/modal-success-reprint.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { WebSocketService } from './services/web-socket.service';
     ScrumboardLabelSelectorComponent,
     ScrumboardEditBoardNameComponent,
     ScrumboardBoardSettingsSidenavComponent,
-    ScrumboardBoardColorSelectorComponent
+    ScrumboardBoardColorSelectorComponent,
+    ModalSuccessReprintComponent
   ],
   imports: [
     CommonModule,
@@ -82,6 +84,6 @@ import { WebSocketService } from './services/web-socket.service';
     BoardResolve,
     WebSocketService
   ],
-  entryComponents: [ScrumboardCardDialogComponent]
+  entryComponents: [ScrumboardCardDialogComponent, ModalSuccessReprintComponent]
 })
 export class ProductionSiteModule { }

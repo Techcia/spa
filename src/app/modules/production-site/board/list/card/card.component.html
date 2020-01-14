@@ -1,6 +1,8 @@
 <!-- CARD DETAILS -->
 <div class="list-card-details">
 
+
+
     <!-- CARD NAME -->
     <div class="row">
         <div class="col">
@@ -22,12 +24,25 @@
         <mat-icon class="s-14">room_service</mat-icon> {{item.description}} <mat-icon class="s-12">clear</mat-icon>
         {{item.quantity}}
     </p>
-
-    <div class="footer text-right">
-        <span class="icon">
-            <mat-icon class="s-24">query_builder</mat-icon>
-        </span>
-        <span class="hour"> {{time}}</span>
+    <br>
+    <p class="list-card-item">
+        <span class="font-weight-bold">Observações do cliente:</span><br>
+        {{card.customerPlace}}<br>
+        {{card.customerIdentification}}
+    </p>
+    <br>
+    <div class="footer">
+        <div class="row">
+            <div class="col">
+                <button (click)="reprintNote()" mat-raised-button color="primary">Reimprimir nota</button>
+            </div>
+            <div class="col  text-right">
+                <span class="icon">
+                    <mat-icon class="s-24">query_builder</mat-icon>
+                </span>
+                <span class="hour"> {{time}}</span>
+            </div>
+        </div>
     </div>
 
 
