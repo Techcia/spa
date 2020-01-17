@@ -57,7 +57,9 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.ws.disconnect();
-        this.messageSubscription.unsubscribe();
+        if (this.messageSubscription) {
+            this.messageSubscription.unsubscribe();
+        }
     }
 
     getCards(id: number) {

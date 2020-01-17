@@ -55,9 +55,8 @@ export class ScrumboardBoardCardComponent implements OnInit {
     }
 
     reprintNote() {
-  
+
         this.psService.reprintNote(this.card).subscribe(res => {
-            this.openModal();
         });
     }
 

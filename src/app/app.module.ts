@@ -21,6 +21,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from './fake-db/fake-db.service';
 import { JwtModule } from "@auth0/angular-jwt";
+import { InterceptorModule } from './core/helpers/https-request-interceptor.service';
 
 export function tokenGetter() {
     return localStorage.getItem("access_token");
@@ -53,7 +54,7 @@ export function tokenGetter() {
         FuseSharedModule,
         FuseSidebarModule,
         FuseThemeOptionsModule,
-
+        InterceptorModule,
         // App modules
         LayoutModule,
 
