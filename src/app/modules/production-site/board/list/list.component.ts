@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation, Outp
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Subject, Subscribable, Subscription, BehaviorSubject, from, of } from 'rxjs';
-import { takeUntil, filter, debounceTime } from 'rxjs/operators';
+import { takeUntil, filter, debounceTime, delay } from 'rxjs/operators';
 
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
@@ -35,7 +35,7 @@ export class ScrumboardBoardListComponent implements OnInit, OnDestroy {
     constructor(private ptService: ProductionSiteService) { }
 
     ngOnInit(): void {
-        this.cardsSubscription = this.cards.subscribe(cards => {
+        this.cardsSubscription = this.cards.pipe(debounceTime(500), delay(10)).subscribe(cards => {
             this.dataSource = [];
             if (cards != null) {
                 from(cards).pipe(filter((cards: any) => cards.status == this.type)).subscribe(res => this.dataSource.push(res));
@@ -58,6 +58,7 @@ export class ScrumboardBoardListComponent implements OnInit, OnDestroy {
 
     onDrop(ev): void {
         ev.value.status = this.list.status;
+        this.onDropCard.next();
         this.ptService.changeStatus(ev.value.id, this.list.status).subscribe(() => {
         })
     }

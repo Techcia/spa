@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, from, pipe, concat, BehaviorSubject, Subscription, of } from 'rxjs';
-import { takeUntil, groupBy, mergeMap, toArray, map, filter, concatAll, concatMap, find, debounceTime } from 'rxjs/operators';
+import { takeUntil, groupBy, mergeMap, toArray, map, filter, concatAll, concatMap, find, debounceTime, delay } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
 //import { ProductionSiteService } from '../production-site.service';
@@ -53,6 +53,10 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
             ]
         };
         this.getCards(this.idPs);
+
+        setTimeout(() => {
+            location.reload();
+        },60000)
     }
 
     ngOnDestroy(): void {
@@ -70,6 +74,8 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
         });
         this.cardsSubject.subscribe(cards => this.cards = cards);
     }
+
+    validChange: boolean = false;
     socketTodo() {
         this.ws.initializingConnection(this.idPs);
         this.messageSubscription = this.ws.messages.pipe(debounceTime(500)).subscribe(message => {
@@ -78,13 +84,18 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
                 if (card == -1) {
                     this.cards.push(message);
                     this.cardsSubject.next(this.cards);
+                } else {
+                    if (!this.validChange) {
+                        this.cards[card].status = message.status;
+                        this.cardsSubject.next(this.cards);
+                    }
+                    this.validChange = false;
                 }
             }
         })
     }
 
     onDropCard(event: any) {
-        let card = event.card;
-        let statusNew = event.status;
+        this.validChange = true;
     }
 }

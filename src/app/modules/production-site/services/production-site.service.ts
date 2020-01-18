@@ -26,7 +26,6 @@ export class ProductionSiteService {
   getListProductionSite(): Observable<ProductionSite[]> {
     return this.http.get<ProductionSite[]>(environment.apiProductionSite + "/ps/list").pipe(catchError(err => {
       this.errorRequest();
-      this.router.navigateByUrl('authentication/login');
       throw err
     }));
   }
