@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginInvalid: boolean;
   loginFailed: boolean;
+  loginAccess: boolean;
 
   /**
    * Constructor
@@ -46,14 +47,21 @@ export class LoginComponent implements OnInit {
 
     const { username, password } = this.loginForm.value;
     this.auth.login(username, password).subscribe(
-      res => { this.loginFailed = false; this.loginInvalid = false; },
+      res => {
+        this.loginFailed = false; this.loginInvalid = false; this.loginAccess = false;
+        if (res.role != "ADMIN") {
+          this.loginAccess = true;
+        }
+      },
       err => {
         if (err.status == 401) {
           this.loginInvalid = true;
+          this.loginAccess = false;
           this.loginFailed = false;
         } else {
           this.loginFailed = true;
           this.loginInvalid = false;
+          this.loginAccess = false;
         }
       }
     );

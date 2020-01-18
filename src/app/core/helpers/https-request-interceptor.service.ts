@@ -31,7 +31,7 @@ export class HttpsRequestInterceptorService implements HttpInterceptor {
       }),
       catchError((err) => {
         if (err.status == "401" && req.url != environment.apiUrl + "/oauth/token?grant_type=client_credentials") {
-          this.openModalError("Token inválido ou expirado", "Por favor, autentique-se novamente", "authentication/login");
+          this.openModalError("Sessão expirada", "Por favor, autentique-se novamente", "authentication/login");
         }
         throw err;
       })
