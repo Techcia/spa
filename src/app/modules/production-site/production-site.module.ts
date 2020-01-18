@@ -77,7 +77,8 @@ import { ModalSuccessReprintComponent } from './components/modal-success-reprint
     NgxDnDModule,
     FuseSharedModule,
     FuseConfirmDialogModule,
-    FuseMaterialColorPickerModule
+    FuseMaterialColorPickerModule,
+    MatDialogModule
   ],
   providers: [
     ProductionSiteService,
