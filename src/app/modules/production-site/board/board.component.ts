@@ -56,7 +56,7 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
 
         setTimeout(() => {
             location.reload();
-        },60000)
+        }, 600000);
     }
 
     ngOnDestroy(): void {
