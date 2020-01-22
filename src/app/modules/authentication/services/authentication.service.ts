@@ -31,7 +31,7 @@ export class AuthenticationService {
     return this.http.post<any>(this.url, {}, httpOptions)
       .pipe(
         map(res => {
-          if (res.access_token && res.role == "ADMIN") {
+          if (res.access_token && (res.role == "ADMIN" || res.role == "STAFF")) {
             localStorage.setItem('access_token', res.access_token);
             this.router.navigate(['production-site']);
           }

@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(username, password).subscribe(
       res => {
         this.loginFailed = false; this.loginInvalid = false; this.loginAccess = false;
-        if (res.role != "ADMIN") {
+        if (!(res.role == "ADMIN" || res.role == "STAFF")) {
           this.loginAccess = true;
         }
       },

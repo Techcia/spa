@@ -84,12 +84,6 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
                 if (card == -1) {
                     this.cards.push(message);
                     this.cardsSubject.next(this.cards);
-                } else {
-                    if (!this.validChange) {
-                        this.cards[card].status = message.status;
-                        this.cardsSubject.next(this.cards);
-                    }
-                    this.validChange = false;
                 }
             }
         })
