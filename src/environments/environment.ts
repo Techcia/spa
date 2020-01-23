@@ -6,8 +6,8 @@ export const environment = {
     production: false,
     hmr: false,
     apiUrl: 'https://sales.db2s.digital',
-    apiProductionSite: "http://18.228.21.25:8080",
-    ws_url: 'http://18.228.21.25:8080/ws'
+    apiProductionSite: "https://checkout.db2s.digital",
+    ws_url: 'https://checkout.db2s.digital/ws'
 };
 
 /*
