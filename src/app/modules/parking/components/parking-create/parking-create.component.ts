@@ -12,15 +12,15 @@ import { ParkingService } from '../../services/parking.service';
 export class ParkingCreateComponent implements OnInit {
 
   parkingForm: FormGroup = this._formBuilder.group({
-    name: ['Estacionamento 1', [Validators.required]],
-    numberOfVacancies: [10, [Validators.required]],
-    valuePerHour: [12, [Validators.required]],
-    street: ['Rua Anhandui Mirim', [Validators.required]],
-    number: ['869', [Validators.required]],
-    postalCode: ['04904-200', [Validators.required]],
-    neighborhood: ['Jardim das Flores', [Validators.required]],
-    city: ['São Paulo', [Validators.required]],
-    state: ['São Paulo', [Validators.required]],
+    name: ['', [Validators.required]],
+    numberOfVacancies: ['', [Validators.required]],
+    valuePerHour: ['', [Validators.required]],
+    street: ['', [Validators.required]],
+    number: ['', [Validators.required]],
+    postalCode: ['', [Validators.required]],
+    neighborhood: ['', [Validators.required]],
+    city: ['', [Validators.required]],
+    state: ['', [Validators.required]],
   });
 
   constructor(
