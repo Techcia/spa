@@ -2,11 +2,19 @@ import { FuseNavigation } from '@fuse/types';
 
 export const navigation: FuseNavigation[] = [
     {
-        id: 'product-siteproduction-site',
-        title: 'Local de Produção',
-        translate: 'NAV.PRODUCTIONSITE',
+        id: 'home',
+        title: 'Home',
+        translate: 'NAV.HOME',
         type: 'item',
-        icon: 'kitchen',
-        url: '/production-site',
+        icon: 'home',
+        url: '/home',
+    },
+    {
+        id: 'parking',
+        title: 'Estacionamento',
+        translate: 'NAV.PARKING',
+        type: 'item',
+        icon: 'local_parking',
+        url: '/parking',
     },
 ];

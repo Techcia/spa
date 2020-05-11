@@ -3,10 +3,7 @@ export const locale = {
     data: {
         'NAV': {
             'HOME': 'Home',
-            'USER': 'Usuário',
-            'MENU': 'Menu',
-            'PRODUCT': 'Produto',
-            'PRODUCTIONSITE': 'Local de Produção'
+            'PARKING': 'Estacionamento',
         }
     }
 };

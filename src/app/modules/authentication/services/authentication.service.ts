@@ -28,20 +28,25 @@ export class AuthenticationService {
       })
     };
 
-    return this.http.post<any>(this.url, {}, httpOptions)
-      .pipe(
-        map(res => {
-          if (res.access_token && (res.role == "ADMIN" || res.role == "STAFF")) {
-            localStorage.setItem('access_token', res.access_token);
-            this.router.navigate(['production-site']);
-          }
-          return res;
-        }),
-        catchError(err => {
-          console.log(err);
-          return throwError(err);
-        })
-      );
+    // return this.http.post<any>(this.url, {}, httpOptions)
+    //   .pipe(
+    //     map(res => {
+    //       if (res.access_token && (res.role == "ADMIN" || res.role == "STAFF")) {
+    //         localStorage.setItem('access_token', res.access_token);
+    //         this.router.navigate(['production-site']);
+    //       }
+    //       return res;
+    //     }),
+    //     catchError(err => {
+    //       console.log(err);
+    //       return throwError(err);
+    //     })
+    //   );
+
+    return of(true).pipe(map(res => {
+      localStorage.setItem('access_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c');
+      this.router.navigate(['home']);
+    }))
   }
 
   logout(): void {

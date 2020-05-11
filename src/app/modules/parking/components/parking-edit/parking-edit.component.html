@@ -1,0 +1,162 @@
+<div id="parking" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center new">
+
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="row">
+                <div class="col-sm-1">
+                    <div class="mt-26 mb-18">
+                        <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/parking/list'">
+                            <mat-icon>arrow_back</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-sm-5 p-3">
+                    <div class="mt-26 mb-18" fxLayout="column" fxLayoutAlign="start start"
+                        [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                        <div class="h2">
+                            Estacionamento 1
+                        </div>
+                    </div>
+                </div>
+
+                <!-- / APP TITLE -->
+                <div class="col-sm-6 text-right p-3">
+                    <div class="mt-26 mb-18">
+                        <button mat-raised-button class="save-parking-button" [disabled]="parkingForm.invalid"
+                            (click)="addParking()">
+                            <span>Salvar</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+            <!-- CONTENT -->
+            <div class="content">
+                <form [formGroup]="parkingForm" class="parking w-100-p" fxLayout="column" fxFlex>
+                    <mat-tab-group>
+                        <mat-tab label="Informações básicas">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <div class="row form-group">
+                                    <div class="col">
+                                        <h3>Dados</h3>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-6">
+                                        <mat-form-field floatLabel="always" appearance="outline" class="w-100-p">
+                                            <mat-label>Nome do Estacionamento</mat-label>
+                                            <input matInput placeholder="Nome do estacionamento" name="name"
+                                                formControlName="name" required>
+                                            <mat-error>O nome é obrigatório</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3">
+                                        <mat-form-field floatLabel="always" appearance="outline" class="w-100-p">
+                                            <mat-label>Número de vagas</mat-label>
+                                            <input matInput placeholder="Número de vagas" name="numberOfVacancies"
+                                                formControlName="numberOfVacancies" required>
+                                            <mat-error>O número de vagas é obrigatório</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-3">
+                                        <mat-form-field floatLabel="always" appearance="outline" class="w-100-p">
+                                            <mat-label>Valor por hora</mat-label>
+                                            <input matInput placeholder="Valor por hora " name="valuePerHour"
+                                                formControlName="valuePerHour" required>
+                                            <mat-error>O valor por hora é obrigatório</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col">
+                                        <h3>Endereço</h3>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-6">
+                                        <mat-form-field floatLabel="always" appearance="outline" class="w-100-p">
+                                            <mat-label>CEP</mat-label>
+                                            <input matInput placeholder="CEP" name="postalCode"
+                                                formControlName="postalCode" required>
+                                            <mat-error>O CEP é obrigatório</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-6">
+                                        <mat-form-field floatLabel="always" appearance="outline" class="w-100-p">
+                                            <mat-label>Cidade</mat-label>
+                                            <input matInput placeholder="Cidade" name="city"
+                                                formControlName="city" required>
+                                            <mat-error>A Cidade é obrigatória</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-6">
+                                        <mat-form-field floatLabel="always" appearance="outline" class="w-100-p">
+                                            <mat-label>Estado</mat-label>
+                                            <input matInput placeholder="Estado" name="state"
+                                                formControlName="state" required>
+                                            <mat-error>O Estado é obrigatório</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-6">
+                                        <mat-form-field floatLabel="always" appearance="outline" class="w-100-p">
+                                            <mat-label>Rua/Av</mat-label>
+                                            <input matInput placeholder="Rua/Av" name="street"
+                                                formControlName="street" required>
+                                            <mat-error>O Rua é obrigatório</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-4">
+                                        <mat-form-field floatLabel="always" appearance="outline" class="w-100-p">
+                                            <mat-label>Bairro</mat-label>
+                                            <input matInput placeholder="Bairro" name="neighborhood"
+                                                formControlName="neighborhood" required>
+                                            <mat-error>O Bairro é obrigatório</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-2">
+                                        <mat-form-field floatLabel="always" appearance="outline" class="w-100-p">
+                                            <mat-label>Número</mat-label>
+                                            <input matInput placeholder="Número" name="number"
+                                                formControlName="number" required>
+                                            <mat-error>O Número é obrigatório</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col">
+                                        <button mat-raised-button color="accent" class="save-parking-button"
+                                            [disabled]="parkingForm.invalid" (click)="addParking()">
+                                            <span>Salvar</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </form>
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>
+<br><br>

@@ -19,7 +19,7 @@ export const fuseConfig: FuseConfig = {
             primaryBackground: 'fuse-navy-700',
             secondaryBackground: 'fuse-navy-900',
             folded: false,
-            hidden: true,
+            hidden: false,
             position: 'top',
             variant: 'vertical-style-1'
         },
