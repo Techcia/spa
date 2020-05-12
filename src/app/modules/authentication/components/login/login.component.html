@@ -5,10 +5,10 @@
         <div id="login-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
 
             <div class="logo">
-                
+                <img class="logo" src="assets/images/logos/logoFINAL.svg">
             </div>
 
-            <div [hidden]="!loginInvalid" class="text-danger message-error">Usuário ou senha inválido</>
+            <div [hidden]="!loginInvalid" class="text-danger message-error">Usuário ou senha inválido</div>
             <div [hidden]="!loginFailed" class="text-danger  message-error">Não foi possível realizar a autentificação
             </div>
             <div [hidden]="!loginAccess" class="text-danger  message-error">Você não tem permissão para acessar o
