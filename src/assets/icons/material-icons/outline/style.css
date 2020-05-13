@@ -3072,3 +3072,8 @@ i, .icomoon-liga, .material-icons {
 .icon-zoom_out:before {
   content: "\ecf4";
 }
+
+.body.theme-default .accent {
+  background-color: #011111 !important;
+  color: white !important;
+}

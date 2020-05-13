@@ -1,6 +1,6 @@
 :host {
     width: 100% !important;
-    padding-bottom: 160px;
+        padding-bottom: 160px;
     background: url("../../../../../assets/images/backgrounds/EstacionamentoFINAL.svg") no-repeat;
     #parking {
       .new {
@@ -73,6 +73,25 @@
           top: 0;
         }
       }
+    }
+
+    .buttonedit{
+      background: url("../../../../../assets/images/logos/BotaoVolta.svg")no-repeat;
+      width: 100%;
+      height: 100%;
+      left: 50px;
+      padding-bottom: 80px;
+      border: transparent;
+
+    }
+
+    .button{
+      background: url("../../../../../assets/images/logos/Salvar.svg")no-repeat;
+      width: 25%;
+      height: 90%;
+      padding-bottom: 40px;
+      left: 100px;
+      border: transparent;
     }
     #parking {
       .header {

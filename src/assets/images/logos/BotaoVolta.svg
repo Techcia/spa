@@ -1,0 +1,28 @@
+<svg id="Camada_1" data-name="Camada 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 35.6667 27.0047">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: url(#Gradiente_sem_nome_9);
+      }
+    </style>
+    <linearGradient id="linear-gradient" y1="13.5023" x2="35.6667" y2="13.5023" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#073e96"/>
+      <stop offset="0.249" stop-color="#0f56a0"/>
+      <stop offset="0.7721" stop-color="#2293ba"/>
+      <stop offset="1" stop-color="#2bb0c6"/>
+    </linearGradient>
+    <linearGradient id="Gradiente_sem_nome_9" data-name="Gradiente sem nome 9" x1="23.5086" y1="12.6523" x2="10.2658" y2="12.6523" gradientUnits="userSpaceOnUse">
+      <stop offset="0.0314" stop-color="#169dd3"/>
+      <stop offset="0.1314" stop-color="#2e89c4"/>
+      <stop offset="0.3423" stop-color="#6c579c"/>
+      <stop offset="0.5533" stop-color="#af2071"/>
+      <stop offset="1" stop-color="#ca0a60"/>
+    </linearGradient>
+  </defs>
+  <path class="cls-1" d="M6.5487,0H29.1179a6.5488,6.5488,0,0,1,6.5488,6.5488V20.4559a6.5488,6.5488,0,0,1-6.5488,6.5488H6.5487A6.5487,6.5487,0,0,1,0,20.456V6.5487A6.5487,6.5487,0,0,1,6.5487,0Z"/>
+  <polygon class="cls-2" points="23.509 6.839 14.564 14.587 14.564 12.94 21.191 21.866 12.788 14.587 12.044 13.943 12.788 12.94 19.843 3.439 23.509 6.839"/>
+</svg>

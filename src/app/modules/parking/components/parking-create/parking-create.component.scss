@@ -74,6 +74,31 @@
         }
       }
     }
+    .button{
+      background: url("../../../../../assets/images/logos/Salvar.svg")no-repeat;
+      width: 25%;
+      height: 90%;
+      padding-bottom: 40px;
+      left: 100px;
+      border: transparent;
+    }
+
+    .buttonedit{
+      background: url("../../../../../assets/images/logos/BotaoVolta.svg")no-repeat;
+      width: 100%;
+      height: 100%;
+      left: 50px;
+      padding-bottom: 80px;
+      border: transparent;
+
+    }
+
+    .estacionamento{
+      background: url("../../../../../assets/images/logos/Novo\ Estacionamento.svg")no-repeat;
+      width: 60%;
+      height: 100%;
+    }
+
     #parking {
       .header {
         .parking-image {

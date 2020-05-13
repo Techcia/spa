@@ -16,26 +16,22 @@
             <div class="row">
                 <div class="col-sm-1">
                     <div class="mt-26 mb-18">
-                        <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/parking/list'">
-                            <mat-icon>arrow_back</mat-icon>
+                        <button class ="buttonedit" [routerLink]="'/parking/list'">
                         </button>
                     </div>
                 </div>
                 <div class="col-sm-5 p-3">
-                    <div class="mt-26 mb-18" fxLayout="column" fxLayoutAlign="start start"
+                    <div class="mt-26 mb-18" class="estacionamento" fxLayout="column" fxLayoutAlign="start start"
                         [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                        <div class="logo ml-16">
-                            <img src="assets/images/logos/Novo-Estacionamento.gif">
-                        </div>
+ 
                     </div>
                 </div>
 
                 <!-- / APP TITLE -->
                 <div class="col-sm-6 text-right p-3">
                     <div class="mt-26 mb-18">
-                        <button mat-raised-button class="save-parking-button" [disabled]="parkingForm.invalid"
+                        <button  class="button" [disabled]="parkingForm.invalid"
                             (click)="addParking()">
-                            <span>Salvar</span>
                         </button>
                     </div>
                 </div>
