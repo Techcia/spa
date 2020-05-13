@@ -30,7 +30,7 @@ export class ParkingEditComponent implements OnInit {
   ngOnInit() {
   }
 
-  addparking() {
+  addParking() {
    
   }
 
