@@ -17,14 +17,12 @@
             <div class="row field">
                 <div class="col-md-4 col-sm-12">
                     <!-- APP TITLE -->
-                    <div class="logo mt-26 mb-18 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                    <div class="logo mt-26 mb-18 mb-md-0" fxLayout="row" class="estacionamento1" fxLayoutAlign="start center">
                         <mat-icon class="logo-icon s-32 mr-16"
                             [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-                            local_parking
+                            
                         </mat-icon>
-                        <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                            Estacionamento
-                        </span>
+
                     </div>
                     <!-- / APP TITLE -->
                 </div>
@@ -39,9 +37,13 @@
 
                 <div class="col-md-4 col-sm-12 text-right">
                     <!-- ADD BUTTON -->
-                    <button routerLink="/parking/create" class="button">
+                    <!--<button routerLink="/parking/create" class="button">
                         
-                    </button>
+                    </button>-->
+                    <a mat-raised-button routerLink="/parking/create"
+                    class="add-parking-button fuse-white mt-26 mb-18">
+                    <span>Adicionar Estacionamento</span>
+                </a>
                     <!-- / ADD BUTTON -->
                 </div>
             </div>

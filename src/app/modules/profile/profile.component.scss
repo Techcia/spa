@@ -1,5 +1,12 @@
 :host {
     width: 100% !important;
+    background: #0000ff;
+    background: -moz-linear-gradient(left,  #8dd2fd 0%, #8dd2fd 50%, #0000ff 100%) !important; 
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#0000ff), color-stop(50%,#0000ff), color-stop(100%,#0000ff)) !important; 
+    background: -webkit-linear-gradient(left,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%) !important; 
+    background: -o-linear-gradient(left,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%) !important; 
+    background: -ms-linear-gradient(left,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%) !important; 
+    background: linear-gradient(to right,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%) !important;
     #profile {
       .new {
         width: 60%;
@@ -73,6 +80,17 @@
       }
     }
 
+    .imagem2{
+      width: 24%;
+      min-height: 10px;
+      height: 10px;
+      left: 1270px !important; 
+      padding-bottom: 30%;
+      position: absolute;
+      margin-top: 200px !important;
+      background: url("../../../assets/images/backgrounds/Perfil.svg") no-repeat !important;
+  }
+
     .imagem{
       background-image: url("../../../assets/images/backgrounds/Perfil.svg")no-repeat;
       width: 100%;
@@ -142,3 +160,4 @@
       }
     }
   }
+

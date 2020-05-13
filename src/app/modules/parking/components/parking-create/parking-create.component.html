@@ -31,9 +31,13 @@
                 <!-- / APP TITLE -->
                 <div class="col-sm-6 text-right p-3">
                     <div class="mt-26 mb-18">
-                        <button  class="button" [disabled]="parkingForm.invalid"
+                        <button mat-raised-button class="save-parking-button" [disabled]="parkingForm.invalid"
+                        (click)="addParking()">
+                        <span>Salvar</span>
+                       </button>
+                        <!--<button  class="button" [disabled]="parkingForm.invalid"
                             (click)="addParking()">
-                        </button>
+                        </button>-->
                     </div>
                 </div>
             </div>
