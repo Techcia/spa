@@ -4,6 +4,7 @@ export const locale = {
         'NAV': {
             'HOME': 'Home',
             'PARKING': 'Estacionamento',
+            'DASHBOARDS': 'Dashboards',
         }
     }
 };
