@@ -5,13 +5,13 @@ app-parking-list {
     height: 100%;
     padding-bottom: 20px;
     //background: url("../../../../../assets/images/backgrounds/EstacionamentoFINAL.svg") no-repeat !important;
-    background: #0000ff;
-    background: -moz-linear-gradient(left,  #8dd2fd 0%, #8dd2fd 50%, #0000ff 100%) !important; 
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#0000ff), color-stop(50%,#0000ff), color-stop(100%,#0000ff)) !important; 
-    background: -webkit-linear-gradient(left,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%) !important; 
-    background: -o-linear-gradient(left,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%) !important; 
-    background: -ms-linear-gradient(left,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%) !important; 
-    background: linear-gradient(to right,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%) !important;
+    //background: #0000ff;
+    //background: -moz-linear-gradient(left,  #8dd2fd 0%, #8dd2fd 50%, #0000ff 100%) !important; 
+   // background: -webkit-gradient(linear, left top, right top, color-stop(0%,#0000ff), color-stop(50%,#0000ff), color-stop(100%,#0000ff)) !important; 
+   // background: -webkit-linear-gradient(left,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%) !important; 
+    //background: -o-linear-gradient(left,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%) !important; 
+   // background: -ms-linear-gradient(left,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%) !important; 
+   // background: linear-gradient(to right,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%) !important;
     #parking {
         .list {
             width: 100%;
@@ -181,11 +181,20 @@ app-parking-list {
 }
 
 .imagem{
-    width: 20%;
+    width: 15%;
     height: 100%;
     left: 1330px !important; 
     padding-bottom: 50%;
     position: absolute;
-    margin-top: 180px !important;
+    margin-top: 240px !important;
     background: url("../../../../../assets/images/backgrounds/EstacionamentoFINAL.svg") no-repeat !important;
 }
+
+.banner{
+    background: url("../../../../../assets/images/logos/banner.svg") no-repeat !important;
+    position: absolute;
+    width:100%;
+    height: 100%;
+    padding-bottom: 200%;
+    margin-top: 0px !important;
+  }
