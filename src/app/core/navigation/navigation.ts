@@ -24,6 +24,6 @@ export const navigation: FuseNavigation[] = [
         translate: 'NAV.DASHBOARDS',
         type: 'item',
         icon: 'dashboard',
-        url  : '/apps/dashboards/project',
+        url  : '/dashboard',
     },
 ];
