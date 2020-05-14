@@ -23,9 +23,15 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'analytics',
+    loadChildren: () => import('./modules/dashboards/analytics/analytics.module').then(m => m.AnalyticsModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'authentication',
     loadChildren: () => import('./modules/authentication/authentication.module').then(m => m.AuthenticationModule),
   },
+
 ];
 
 @NgModule({
