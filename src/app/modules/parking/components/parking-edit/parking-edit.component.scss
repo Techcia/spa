@@ -92,14 +92,20 @@
 
     }
 
-    .button{
-      background: url("../../../../../assets/images/logos/Salvar.svg")no-repeat;
-      width: 25%;
-      height: 90%;
-      padding-bottom: 40px;
-      left: 100px;
-      border: transparent;
-    }
+    //.button{
+    //  background: url("../../../../../assets/images/logos/Salvar.svg")no-repeat;
+    //  width: 25%;
+    //  height: 90%;
+   //   padding-bottom: 40px;
+   //   left: 100px;
+   //   border: transparent;
+   // }
+
+   .editestacionamento{
+     background: url("../../../../../assets/images/logos/EditarEstacionamento.svg") no-repeat !important;
+     width: 60%;
+     height: 100%;
+   }
     #parking {
       .header {
         .parking-image {
