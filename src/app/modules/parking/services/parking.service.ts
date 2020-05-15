@@ -16,12 +16,31 @@ export class ParkingService {
 
   parkings: any[];
   onParkingChanged: BehaviorSubject<any>;
+  parking: any[];
   constructor(private http: HttpClient, private dialog: MatDialog) {
     this.onParkingChanged = new BehaviorSubject({});
    }
 
    getParkings(): Observable<any>{
       return this.http.get<any>(this.url);
+   }
+
+   getParkingById(id: number): Observable<any>{
+    return this.http.get<any>(this.url + "/" + id);
+ }
+
+   createParking(parking: any){
+    return this.http.post(this.url, parking).pipe(catchError(err => {
+      this.errorRequest();
+      throw err
+    }))
+   }
+
+   editParking(parking: any){
+    return this.http.put(this.url + "/"+parking.id, parking).pipe(catchError(err => {
+      this.errorRequest();
+      throw err
+    }))
    }
 
    deleteParking(id: number): Observable<any>{
@@ -44,6 +63,25 @@ export class ParkingService {
           resolve(response.content);
         }, reject);
     });
+   }
+
+   getParkingByIDResolve(id: number){
+    return new Promise((resolve, reject) => {
+      this.getParkingById(id).pipe(debounceTime(150),
+        catchError(err => {
+          this.errorRequest();
+          throw err
+        }))
+        .subscribe((response: any) => {
+          this.parking = response;
+          this.onParkingChanged.next(response);
+          resolve(response.content);
+        }, reject);
+    });
+   }
+
+   findCep(cep: string): Observable<any>{
+    return this.http.get(`https://viacep.com.br/ws/${cep}/json/`);
    }
 
    errorRequest() {

@@ -6,6 +6,7 @@ import { ParkingListComponent } from './components/parking-list/parking-list.com
 import { ParkingCreateComponent } from './components/parking-create/parking-create.component';
 import { ParkingEditComponent } from './components/parking-edit/parking-edit.component';
 import { ParkingListResolveService } from './services/resolves/parking-list-resolve.service';
+import { ParkingEditResolveService } from './services/resolves/parking-edit-resolve.service';
 
 
 const routes: Routes = [
@@ -28,6 +29,9 @@ const routes: Routes = [
       {
         path: 'edit/:id',
         component: ParkingEditComponent,
+        resolve: {
+          data: ParkingEditResolveService
+        }
       },
     ]
   },

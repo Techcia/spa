@@ -31,9 +31,11 @@
                 <!-- / APP TITLE -->
                 <div class="col-sm-6 text-right p-3">
                     <div class="mt-26 mb-18">
-                        <button mat-raised-button class="save-profile-button" [disabled]="profileForm.invalid"
-                            (click)="addProfile()">
+                        <button mat-raised-button class="save-profile-button" [disabled]="profileForm.invalid || loading"
+                            (click)="editProfile()">
                             <span>Salvar</span>
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                            aria-hidden="true"></span>
                         </button>
                     </div>
                 </div>
@@ -91,38 +93,12 @@
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <div class="col-6">
-                                        <mat-form-field floatLabel="always" appearance="outline" class="w-100-p">
-                                            <mat-label>Cidade</mat-label>
-                                            <input matInput placeholder="Cidade" name="cidade"
-                                                formControlName="cidade" required>
-                                            <mat-error>A cidade e obrigatoria</mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-6">
-                                        <mat-form-field floatLabel="always" appearance="outline" class="w-100-p">
-                                            <mat-label>Estado</mat-label>
-                                            <input matInput placeholder="Estado" name="estado" formControlName="estado"
-                                                required>
-                                            <mat-error>Estado e obrigatorio</mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-6">
-                                        <mat-form-field floatLabel="always" appearance="outline" class="w-100-p">
-                                            <mat-label>CEP</mat-label>
-                                            <input matInput placeholder="Codigo Postal" name="cep"
-                                                formControlName="cep" required>
-                                            <mat-error>Codigo Postal é obrigatório</mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
                                     <div class="col">
                                         <button mat-raised-button color="accent" class="save-profile-button"
-                                            [disabled]="profileForm.invalid" (click)="addProfile()">
+                                            [disabled]="profileForm.invalid || loading" (click)="editProfile()">
                                             <span>Salvar</span>
+                                            <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
                                         </button>
                                     </div>
                                 </div>

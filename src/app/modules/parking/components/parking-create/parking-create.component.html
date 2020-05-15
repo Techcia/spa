@@ -38,7 +38,7 @@
                 <!-- / APP TITLE -->
                 <div class="col-sm-6 text-right p-3">
                     <div class="mt-26 mb-18">
-                        <button mat-raised-button class="save-parking-button" [disabled]="parkingForm.invalid"
+                        <button mat-raised-button class="save-parking-button" [disabled]="parkingForm.invalid || loading"
                             (click)="addParking()">
                             <span>Salvar</span>
                         </button>
@@ -86,8 +86,7 @@
                                             <mat-label>Valor por hora</mat-label>
                                             <input currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" matInput placeholder="Valor por hora " name="valuePerHour"
                                                 formControlName="valuePerHour" required>
-                                            <mat-error>O valor por hora é obrigatório</mat-error>
-                                            <mat-error *ngIf="form.valuePerHour.hasError('min')">O valor tem que ser maior que R$ 0,00
+                                            <mat-error *ngIf="parkingForm.controls.valuePerHour.hasError('min')">O valor tem que ser maior que R$ 0,00
                                             </mat-error>
                                         </mat-form-field>
                                     </div>
@@ -111,15 +110,17 @@
                                     <div class="col-6">
                                         <mat-form-field floatLabel="always" appearance="outline" class="w-100-p">
                                             <mat-label>CEP</mat-label>
-                                            <input mask="00000-000" matInput placeholder="CEP" name="postalCode"
+                                            <input (input)="onCep()" mask="00000-000" matInput placeholder="CEP" name="postalCode"
                                                 formControlName="postalCode" required>
                                             <mat-error>O CEP é inválido</mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-6">
                                         <button mat-raised-button color="accent" class="save-parking-button"
-                                            [disabled]="parkingForm.controls.postalCode.invalid" (click)="finndCEP()">
+                                            [disabled]="parkingForm.controls.postalCode.invalid || loading" (click)="findCep()">
                                             <span>Buscar</span>
+                                            <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
                                         </button>
                                     </div>
                                 </div>
@@ -172,8 +173,10 @@
                                 <div class="row form-group">
                                     <div class="col">
                                         <button mat-raised-button color="accent" class="save-parking-button"
-                                            [disabled]="parkingForm.invalid" (click)="addParking()">
+                                            [disabled]="parkingForm.invalid || loading" (click)="addParking()">
                                             <span>Salvar</span>
+                                            <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
                                         </button>
                                     </div>
                                 </div>

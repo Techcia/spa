@@ -65,7 +65,7 @@ export function tokenGetter() {
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,
-                whitelistedDomains: ["api-parkpaygo.herokuapp.com"],
+                whitelistedDomains: ["api-parkpaygo.herokuapp.com", "https://viacep.com.br/"],
                 blacklistedRoutes: [""]
             }
         })

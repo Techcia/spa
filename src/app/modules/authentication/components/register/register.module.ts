@@ -4,7 +4,7 @@ import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, 
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
-import { RegisterComponent } from 'app/main/pages/authentication/register/register.component';
+import { RegisterComponent } from './register.component';
 
 const routes = [
     {

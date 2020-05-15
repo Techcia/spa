@@ -27,6 +27,7 @@ import { ParkingListResolveService } from './services/resolves/parking-list-reso
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { ParkingEditResolveService } from './services/resolves/parking-edit-resolve.service';
 @NgModule({
   declarations: [ParkingComponent, ParkingListComponent, ParkingEditComponent, ParkingCreateComponent],
   imports: [
@@ -54,7 +55,8 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
   ],
   providers: [
     ParkingService,
-    ParkingListResolveService
+    ParkingListResolveService,
+    ParkingEditResolveService
   ]
 })
 export class ParkingModule { }

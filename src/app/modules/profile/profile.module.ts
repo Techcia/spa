@@ -19,6 +19,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FuseConfirmDialogModule, FuseSidebarModule } from '@fuse/components';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ProfileService } from './services/profile.service';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     FuseConfirmDialogModule,
     FuseSidebarModule,
     MatDialogModule
-  ]
+  ],
+  providers: [ProfileService]
 })
 export class ProfileModule { }
