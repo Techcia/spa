@@ -22,10 +22,11 @@
             "@fuse": [
                 "@fuse/"
             ]
-        }
+        },
+        "emitDecoratorMetadata": true
     },
     "angularCompilerOptions": {
         "fullTemplateTypeCheck": false,
         "strictInjectionParameters": false
-    }
+    },
 }
