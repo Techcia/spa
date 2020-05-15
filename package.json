@@ -14,7 +14,8 @@
         "lint": "ng lint",
         "e2e": "ng e2e",
         "bundle-report": "webpack-bundle-analyzer dist/stats.json",
-        "start": "ng serve",
+        "start": "node server.js",
+        "serve": "ng serve",
         "postinstall": "node --max_old_space_size=5048 ./node_modules/@angular/cli/bin/ng build --base-href --aot --buildOptimizer=true --outputHashing=all --sourceMap=false --optimization=true"
     },
     "engines": {
