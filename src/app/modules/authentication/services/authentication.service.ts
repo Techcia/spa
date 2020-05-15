@@ -11,8 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthenticationService {
 
-  url: string = environment.apiUrl + "/oauth/token?grant_type=client_credentials";
-  urlUnipix = "http://18.231.83.217:8080/servicosdigitais/login";
+  url: string = environment.apiUrl + "/auth/company";
 
   constructor(
     private http: HttpClient,
@@ -22,31 +21,21 @@ export class AuthenticationService {
 
   login(username: string, password: string): Observable<any> {
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': "Basic " + btoa(username + ":" + password)
-      })
-    };
-
-    // return this.http.post<any>(this.url, {}, httpOptions)
-    //   .pipe(
-    //     map(res => {
-    //       if (res.access_token && (res.role == "ADMIN" || res.role == "STAFF")) {
-    //         localStorage.setItem('access_token', res.access_token);
-    //         this.router.navigate(['production-site']);
-    //       }
-    //       return res;
-    //     }),
-    //     catchError(err => {
-    //       console.log(err);
-    //       return throwError(err);
-    //     })
-    //   );
-
-    return of(true).pipe(map(res => {
-      localStorage.setItem('access_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c');
-      this.router.navigate(['home']);
-    }))
+    return this.http.post<any>(this.url, {
+      username: username,
+      password: password
+    })
+      .pipe(
+        map(res => {
+          localStorage.setItem('access_token', res.token);
+          this.router.navigate(['home']);
+          return res;
+        }),
+        catchError(err => {
+          console.log(err);
+          return throwError(err);
+        })
+      );
   }
 
   logout(): void {

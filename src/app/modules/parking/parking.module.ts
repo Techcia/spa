@@ -23,7 +23,10 @@ import { FuseConfirmDialogModule, FuseSidebarModule } from '@fuse/components';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ParkingService } from './services/parking.service';
 import { ParkingCreateComponent } from './components/parking-create/parking-create.component';
-
+import { ParkingListResolveService } from './services/resolves/parking-list-resolve.service';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 @NgModule({
   declarations: [ParkingComponent, ParkingListComponent, ParkingEditComponent, ParkingCreateComponent],
   imports: [
@@ -45,10 +48,13 @@ import { ParkingCreateComponent } from './components/parking-create/parking-crea
     ReactiveFormsModule,
     FuseConfirmDialogModule,
     FuseSidebarModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxMaskModule.forRoot(options),
+    CurrencyMaskModule
   ],
   providers: [
-    ParkingService
+    ParkingService,
+    ParkingListResolveService
   ]
 })
 export class ParkingModule { }

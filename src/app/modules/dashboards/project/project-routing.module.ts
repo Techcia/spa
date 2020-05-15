@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AnalyticsDashboardComponent } from './analytics.component';
+import { ProjectDashboardComponent } from './project.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: AnalyticsDashboardComponent,
+    component: ProjectDashboardComponent,
   },
   {
     path: '**',
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AnalyticsDashboardModule { }
+export class ProjectDashboardModule { }

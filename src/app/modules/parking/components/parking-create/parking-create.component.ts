@@ -14,7 +14,8 @@ export class ParkingCreateComponent implements OnInit {
   parkingForm: FormGroup = this._formBuilder.group({
     name: ['', [Validators.required]],
     numberOfVacancies: ['', [Validators.required]],
-    valuePerHour: ['', [Validators.required]],
+    valuePerHour: [0, [Validators.required, Validators.min(0.1)]],
+    phone: ['', [Validators.required]],
     street: ['', [Validators.required]],
     number: ['', [Validators.required]],
     postalCode: ['', [Validators.required]],
@@ -22,6 +23,9 @@ export class ParkingCreateComponent implements OnInit {
     city: ['', [Validators.required]],
     state: ['', [Validators.required]],
   });
+
+  cep: any = null;
+  loading = false
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -33,7 +37,12 @@ export class ParkingCreateComponent implements OnInit {
   }
 
   addParking() {
-   
+   this.loading = true;
+  }
+
+  findCep(){
+    this.loading = true;
+
   }
 
 }

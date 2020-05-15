@@ -5,15 +5,10 @@
         <div id="login-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
 
             <div class="logo">
-                <img class="logo" src="assets/images/logos/logoFINAL.svg">
+                <img class="logo" src="assets/images/logos/logoEmpresa.svg">
             </div>
 
             <div [hidden]="!loginInvalid" class="text-danger message-error">Usuário ou senha inválido</div>
-            <div [hidden]="!loginFailed" class="text-danger  message-error">Não foi possível realizar a autentificação
-            </div>
-            <div [hidden]="!loginAccess" class="text-danger  message-error">Você não tem permissão para acessar o
-                sistema
-            </div>
 
             <form name="loginForm" [formGroup]="loginForm" (ngSubmit)="loginSubmit()" novalidate>
 
@@ -23,6 +18,9 @@
                     <mat-icon matSuffix class="secondary-text">mail</mat-icon>
                     <mat-error *ngIf="loginForm.get('username').hasError('required')">
                         O usuário é obrigatório
+                    </mat-error>
+                    <mat-error *ngIf="loginForm.get('username').hasError('email')">
+                        O email é inválido
                     </mat-error>
                 </mat-form-field>
 
@@ -47,8 +45,10 @@
                 </div> -->
 
                 <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
-                    [disabled]="loginForm.invalid">
-                    LOGIN
+                    [disabled]="loginForm.invalid || loading">
+                    LOGIN 
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
                 </button>
 
             </form>

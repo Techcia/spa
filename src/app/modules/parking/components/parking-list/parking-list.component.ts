@@ -9,6 +9,7 @@ import { FuseUtils } from '@fuse/utils';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 import { ParkingService } from '../../services/parking.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-parking-list',
@@ -35,7 +36,8 @@ dataSource: FilesDataSource | null;
 
   constructor(
     private _parkingService: ParkingService,
-    public _matDialog: MatDialog
+    public _matDialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) {
     // Set the private defaults
     this._unsubscribeAll = new Subject();
@@ -79,10 +81,13 @@ dataSource: FilesDataSource | null;
 
     this.confirmDialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // this._parkingService.deleteParking(parking).subscribe(() => {
-        //   this._parkingService.getProductionsSite();
-        //   this.getParking();
-        // });
+        this._parkingService.deleteParking(parking.id).subscribe(() => {
+          this._snackBar.open("Item excluido com sucesso", "Fechar", {
+            duration: 2000,
+          });
+          this._parkingService.getParkingsResolve();
+          this.getParking();
+        });
       }
       this.confirmDialogRef = null;
     });

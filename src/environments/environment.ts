@@ -5,9 +5,7 @@
 export const environment = {
     production: false,
     hmr: false,
-    apiUrl: 'https://sales.db2s.digital',
-    apiProductionSite: "https://checkout.db2s.digital",
-    ws_url: 'https://checkout.db2s.digital/ws'
+    apiUrl: 'https://api-parkpaygo.herokuapp.com',
 };
 
 /*

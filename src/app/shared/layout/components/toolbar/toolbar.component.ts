@@ -27,7 +27,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     navigation: any;
     selectedLanguage: any;
     userStatusOptions: any[];
-    nameUser: string = "";
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -114,10 +113,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
         // Set the selected language from default languages
         this.selectedLanguage = _.find(this.languages, { id: this._translateService.currentLang });
-        if (localStorage.getItem('access_token') != null) {
-            const decodedToken = this.jwtHelper.decodeToken(localStorage.getItem('access_token'));
-            this.nameUser = decodedToken.firstname;
-        }
 
     }
 

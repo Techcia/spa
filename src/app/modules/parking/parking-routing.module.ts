@@ -5,6 +5,7 @@ import { ParkingComponent } from './parking.component';
 import { ParkingListComponent } from './components/parking-list/parking-list.component';
 import { ParkingCreateComponent } from './components/parking-create/parking-create.component';
 import { ParkingEditComponent } from './components/parking-edit/parking-edit.component';
+import { ParkingListResolveService } from './services/resolves/parking-list-resolve.service';
 
 
 const routes: Routes = [
@@ -16,6 +17,9 @@ const routes: Routes = [
       {
         path: 'list',
         component: ParkingListComponent,
+        resolve: {
+          data: ParkingListResolveService
+        }
       },
       {
         path: 'create',

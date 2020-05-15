@@ -65,7 +65,7 @@ export function tokenGetter() {
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,
-                whitelistedDomains: ["sales.db2s.digital", "18.228.21.25:8080"],
+                whitelistedDomains: ["api-parkpaygo.herokuapp.com"],
                 blacklistedRoutes: [""]
             }
         })
