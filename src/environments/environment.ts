@@ -5,7 +5,7 @@
 export const environment = {
     production: false,
     hmr: false,
-    apiUrl: 'https://api-parkpaygo.herokuapp.com',
+    apiUrl: 'http://apiparkpaygo-env.eba-cp4p3e5v.us-east-2.elasticbeanstalk.com',
 };
 
 /*
