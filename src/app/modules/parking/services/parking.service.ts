@@ -22,7 +22,7 @@ export class ParkingService {
    }
 
    getParkings(): Observable<any>{
-      return this.http.get<any>(this.url);
+      return this.http.get<any>(this.url + "/company");
    }
 
    getParkingById(id: number): Observable<any>{

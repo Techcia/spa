@@ -1,7 +1,69 @@
-<div class = "background">
-    <div class="imagem1">
-        <img class="logo-icon" src="../../../../../assets/images/backgrounds/TelaHOME.svg">
-    </div>
- </div>
+<div class="container">
+    <form [formGroup]="filterDashboard" (ngSubmit)='getDashboardSale()'>
+        <div class="row filter">
+            <div class="col-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Período</mat-label>
+                    <mat-select (selectionChange)="onSelectPeriod($event)" formControlName="period" required>
+                        <mat-option [value]="1">Hoje</mat-option>
+                        <mat-option [value]="2">Ontem</mat-option>
+                        <mat-option [value]="3">Esta Semana</mat-option>
+                        <mat-option [value]="4">Semana Anterior</mat-option>
+                        <mat-option [value]="5">Mês Atual</mat-option>
+                        <mat-option [value]="6">Mês Anterior</mat-option>
+                        <mat-option [value]="7">Escolher Período</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div *ngIf="filterDashboard.controls.period.value == 7" class="col-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Data Inicial</mat-label>
+                    <input [min]="minDate" [max]="filterDashboard.controls.finalDate.value" formControlName="initalDate" matInput
+                        [matDatepicker]="picker1">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div *ngIf="filterDashboard.controls.period.value == 7" class="col-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Data Final</mat-label>
+                    <input [min]="filterDashboard.controls.initalDate.value" formControlName="finalDate" matInput
+                        [matDatepicker]="picker2">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <button [disabled]="loading" type="submit" mat-button color="'primary'">
+                    Filtrar
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 total">
+                <div class="card text-center">
+                    <mat-icon>local_parking</mat-icon>
+                    <span class="value">{{totalNumber}}</span>
+                    <span class="title">Total de vendas</span>
+                </div>
+                <div class="card text-center">
+                    <mat-icon>attach_money</mat-icon>
+                    <span class="value">{{totalValue | currency : 'R$'}}</span>
+                    <span class="title">Total de vendas em R$</span>
+                </div>
+                <div class="card text-center">
+                    <mat-icon>insert_chart_outlined</mat-icon>
+                    <span class="value">{{media | currency : 'R$'}}</span>
+                    <span class="title">Media de vendas por hora</span>
+                </div>
+            </div>
+            <div class="col-9 dashboard">
+                <div class="card" id="chartDiv">
 
- <div class= "banner"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

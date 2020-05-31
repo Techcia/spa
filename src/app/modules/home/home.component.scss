@@ -1,28 +1,62 @@
-.imagem1{
-    min-height: 200px;
-    width: 70%;
-    position: absolute;
-    height: 50%;
-    left: 504px !important;
-    margin-top: 138px !important;
+:host {
+    padding-top: 20px;
+    .container {
+        width: 100%;
+        max-width: 1200px !important;
+        margin: 0 auto !important;
+        .row {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }
+
+    form {
+        width: 100%;
+        mat-form-field {
+            width: 100%;
+        }
+    }
+
+    .total {
+        .card {
+            height: 150px;
+            background-color: #fff;
+            border: none;
+            border-bottom: 5px solid #1b447a;
+            padding-top: 30px;
+            margin-bottom: 49px;
+            .value {
+                font-size: 23px;
+                font-weight: 600;
+            }
+            .title {
+                font-size: 14px;
+                color: rgb(141, 138, 138);
+            }
+            mat-icon {
+                font-size: 30px;
+                width: 100%;
+                margin-bottom: 5px;
+                color: #1b447a;
+            }
+        }
+        .card:last-child {
+            margin-bottom: 0px;
+        }
+    }
+
+    .dashboard {
+        .card {
+            height: 550px;
+            background-color: #fff;
+            border: none;
+            border-bottom: 5px solid #1b447a;
+        }
+    }
+    button {
+        background-color: #1b447a;
+        border: 2px solid #1b447a;
+        color: #fff;
+        margin-top: 14px;
+    }
 }
-
-//.background{
-//    background: #0000ff; 
-//    background: -moz-linear-gradient(left,  #8dd2fd 0%, #8dd2fd 50%, #0000ff 100%); 
-//    background: -webkit-linear-gradient(left,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%); 
-//    background: -o-linear-gradient(left,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%); 
-//    background: -ms-linear-gradient(left,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%); 
-//    background: linear-gradient(to right,  #8dd2fd 0%,#8dd2fd 50%,#0000ff 100%); 
-//    
-//    width: 100%;
-//}
-
-.banner{
-    background: url("../../../assets/images/logos/banner.svg") no-repeat !important;
-    position: absolute;
-    width:100%;
-    height: 100%;
-    padding-bottom: 200%;
-    margin-top: 0px !important;
-  }
