@@ -15,7 +15,7 @@ export class ChartLine {
         this.createLegend();
     }
 
-    createSerie(dados: any) {
+    createSerie(dados: any, data: any) {
         let series = this.chart.series.push(new am4charts.LineSeries());
         series.dataFields.valueY = "value";
         series.dataFields.dateX = "dataPay";
@@ -46,7 +46,7 @@ export class ChartLine {
         bullet.circle.fill = am4core.color("#fff");
         var bullethover = bullet.states.create("hover");
         bullethover.properties.scale = 1.3;
-        series.data = dados.sales;
+        series.data = data;
         return series;
     }
 

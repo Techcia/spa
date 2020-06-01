@@ -3,7 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { DashboardSalesService } from './services/dashboard-sales.service';
 import { from, of } from 'rxjs';
 import * as moment from "moment";
-import { map, reduce, finalize } from 'rxjs/operators';
+import * as momentTimezone from 'moment-timezone';
+import { map, reduce, finalize, groupBy, flatMap, mergeMap, toArray } from 'rxjs/operators';
 import { ChartLine } from 'app/shared/chart/chart-line';
 import { DateAdapter } from '@angular/material';
 
@@ -61,8 +62,6 @@ export class HomeComponent implements OnInit {
       finalDate: new Date(this.finalDate.getTime() - (this.finalDate.getTimezoneOffset() * 60000)).toISOString()
     }
 
-    console.log(data);
-
     this.dashboardService.getDashboardSale(data).pipe(finalize(() => {
       this.loading = false;
     })).subscribe(dashboard => {
@@ -73,7 +72,7 @@ export class HomeComponent implements OnInit {
   }
 
   calculateValues() {
-    this.totalNumber =  0;
+    this.totalNumber = 0;
     this.totalValue = 0;
     this.media = 0;
     if (this.dashboard.length > 0) {
@@ -185,17 +184,38 @@ export class HomeComponent implements OnInit {
     if (this.dashboard.length <= 0)
       return [];
     let i: number = 0;
-    console.log
     from(this.dashboard).subscribe((parking: any) => {
-      parking.sales.push({
+      let sales = parking.sales.map((sale: any) => {
+        let date = momentTimezone(sale.dataPay).tz('Europe/London').format('DDMMYYYY');
+        return { ...sale, data: Number(date) };
+      });
+
+      let salesCalculate = [];
+
+      const accumulator = (acc, curr) => acc + curr.value;
+      from(sales).pipe(
+        groupBy((x: any) => x.data),
+        flatMap(group => group.pipe(toArray()))
+      ).subscribe(sum => {
+        let value = 0;
+        from(sum).subscribe(res => {
+          value += res.value
+        })
+        salesCalculate.push({
+          value: value,
+          dataPay: sum[sum.length - 1].dataPay
+        })
+      });
+
+      salesCalculate.push({
         dataPay: this.finalDate,
         value: 0
       });
-      parking.sales.unshift({
+      salesCalculate.unshift({
         dataPay: this.initialDate,
         value: 0
       });
-      this.chartLine.createSerie(parking);
+      this.chartLine.createSerie(parking, salesCalculate);
       i++;
     });
   }
