@@ -12,6 +12,7 @@ import { LOCALE_ID } from '@angular/core';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
 import { MAT_MOMENT_DATE_FORMATS, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { ParkingService } from '../parking/services/parking.service';
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
@@ -40,6 +41,8 @@ registerLocaleData(localePt, 'pt');
     },
     {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
     DashboardSalesService,
-    DashboardSalesResolveService]
+    DashboardSalesResolveService,
+    ParkingService
+  ]
 })
 export class HomeModule { }

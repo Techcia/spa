@@ -57,6 +57,6 @@ import { ParkingEditResolveService } from './services/resolves/parking-edit-reso
     ParkingService,
     ParkingListResolveService,
     ParkingEditResolveService
-  ]
+  ],
 })
 export class ParkingModule { }
