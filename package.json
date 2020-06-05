@@ -25,6 +25,7 @@
     "private": true,
     "dependencies": {
         "@agm/core": "1.0.0-beta.7",
+        "@amcharts/amcharts4": "4.9.24",
         "@angular/animations": "8.1.2",
         "@angular/cdk": "8.1.1",
         "@angular/common": "8.1.2",
@@ -60,6 +61,7 @@
         "hammerjs": "2.0.8",
         "lodash": "4.17.15",
         "moment": "2.24.0",
+        "moment-timezone": "0.5.31",
         "net": "1.0.2",
         "ng2-charts": "2.3.0",
         "ng2-currency-mask": "5.3.1",
