@@ -2,6 +2,7 @@
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import am4lang_pt_BR from '@amcharts/amcharts4/lang/pt_BR';
 am4core.useTheme(am4themes_animated);
 
 export class ChartBar {
@@ -17,10 +18,13 @@ export class ChartBar {
         // Create axes
         let dateAxis = this.dateAxis = chart.xAxes.push(new am4charts.DateAxis());
         let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        chart.numberFormatter.intlLocales = 'pt-BR';
+        chart.language.locale = am4lang_pt_BR;
         this.createSeries();
         this.createBullet();
         this.createCursor();
         this.createScrollbar();
+        
     }
 
     createSeries() {
@@ -29,6 +33,7 @@ export class ChartBar {
         series.dataFields.valueY = "value";
         series.dataFields.dateX = "date";
         series.tooltipText = "{value}"
+        series.numberFormatter.numberFormat = 'R$ #,###.00'
         series.strokeWidth = 2;
         series.minBulletDistance = 15;
 
@@ -40,6 +45,7 @@ export class ChartBar {
         series.tooltip.label.minHeight = 40;
         series.tooltip.label.textAlign = "middle";
         series.tooltip.label.textValign = "middle";
+        series.tooltip.label.text = 'R$ {' + series.dataFields.valueY + ".formatNumber('#,###.00')}";
     }
 
     createBullet() {
