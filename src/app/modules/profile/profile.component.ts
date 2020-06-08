@@ -4,6 +4,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { ProfileService } from './services/profile.service';
 import { finalize } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
+import { ValidateBrService } from 'angular-validate-br';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,7 @@ export class ProfileComponent implements OnInit {
     id: [0, [Validators.required]],
     name: ['', [Validators.required]],
     email: ['', [Validators.required]],
-    document: ['', [Validators.required]],
+    document: ['', [Validators.required, this.validateBrService.cnpj]],
     tradeName: ['', [Validators.required]],
   });
   loading: boolean = false;
@@ -25,7 +26,7 @@ export class ProfileComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private profileService: ProfileService,
     private _snackBar: MatSnackBar,
-
+    private validateBrService: ValidateBrService
   ) {
   }
 

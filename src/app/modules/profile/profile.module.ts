@@ -20,7 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FuseConfirmDialogModule, FuseSidebarModule } from '@fuse/components';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ProfileService } from './services/profile.service';
-
+import { AngularValidateBrLibModule } from 'angular-validate-br';
 
 @NgModule({
   declarations: [ProfileComponent],
@@ -43,7 +43,8 @@ import { ProfileService } from './services/profile.service';
     ReactiveFormsModule,
     FuseConfirmDialogModule,
     FuseSidebarModule,
-    MatDialogModule
+    MatDialogModule,
+    AngularValidateBrLibModule
   ],
   providers: [ProfileService]
 })
