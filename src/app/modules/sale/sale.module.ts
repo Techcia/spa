@@ -52,7 +52,8 @@ import { MatSpinner, MatProgressSpinnerModule, MatDatepicker, MatDatepickerModul
     MatProgressSpinnerModule,
     FuseProgressBarModule,
     MatDatepickerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
   providers: [SaleService, SaleResolveService]
 })

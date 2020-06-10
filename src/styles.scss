@@ -21,7 +21,10 @@ mat-form-field{
 }
 
 body.theme-default .accent {
-    background-color: transparent!important;
+    background-color: #039be5 !important;
 }
 
 
+body.theme-default .header.accent{
+    background-color: transparent!important;;
+} 

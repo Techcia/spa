@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { MatSort, MatPaginator, MatDialog, MatSnackBar } from '@angular/material';
+import {MatPaginator, MatDialog, MatSnackBar } from '@angular/material';
 import { Subject, fromEvent, BehaviorSubject, Observable, merge, of } from 'rxjs';
 import { SaleService } from './services/sale.service';
 import { takeUntil, debounceTime, distinctUntilChanged, map, startWith, switchMap, catchError, finalize } from 'rxjs/operators';
@@ -25,9 +25,6 @@ export class SaleComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, { static: true })
   paginator: MatPaginator;
 
-  @ViewChild(MatSort, { static: true })
-  sort: MatSort;
-
   @ViewChild('filter', { static: true })
   filter: ElementRef;
 
@@ -35,7 +32,6 @@ export class SaleComponent implements OnInit, AfterViewInit {
   saleResult: any;
   pageSize = 10;
   parkings: any;
-  parkingsStr: string;
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -45,7 +41,8 @@ export class SaleComponent implements OnInit, AfterViewInit {
     period: [3, [Validators.required]],
     initalDate: [''],
     finalDate: [''],
-    parkings: [[], [Validators.required]]
+    parkings: [[], [Validators.required]],
+    nameClient: ['']
   });
 
   // Private
@@ -68,7 +65,6 @@ export class SaleComponent implements OnInit, AfterViewInit {
     this.parkings = this.parkingService.parkings;
     of(this.parkingService.parkings).pipe(map(ps => { return ps.map(p => { return p.id }) })).subscribe(res => {
       this.filterDashboard.controls.parkings.setValue(res);
-      this.parkingsStr = res.join(',');
     });
   }
 
@@ -77,7 +73,7 @@ export class SaleComponent implements OnInit, AfterViewInit {
   }
 
   getParking() {
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {
@@ -89,13 +85,14 @@ export class SaleComponent implements OnInit, AfterViewInit {
           initialDate.setHours(0, 0, 0, 0);
           finalDate.setHours(23, 59, 59, 0);
           this.isLoadingResults = true;
+          let parkingStr = this.filterDashboard.value.parkings.join(",");
           let data = {
             initialDate: new Date(initialDate.getTime() - (initialDate.getTimezoneOffset() * 60000)).toISOString(),
             finalDate: new Date(finalDate.getTime() - (finalDate.getTimezoneOffset() * 60000)).toISOString(),
             page: this.paginator.pageIndex,
             size: this.paginator.pageSize,
-            parkings: this.parkingsStr,
-            nameClient: ""
+            parkings: parkingStr,
+            nameClient: this.filterDashboard.controls.nameClient.value
           };
           return this._saleService.getSales(data);
         }),
@@ -103,8 +100,7 @@ export class SaleComponent implements OnInit, AfterViewInit {
           // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
           this.isRateLimitReached = false;
-          this.resultsLength = data.totalElements;
-
+          this.saleResult = data;
           return data.content;
         }),
         catchError(() => {
@@ -123,17 +119,18 @@ export class SaleComponent implements OnInit, AfterViewInit {
     }
     let initialDate = this.createInitialDate();
     let finalDate = this.createFinalDate();
+    let parkingStr = this.filterDashboard.value.parkings.join(",");
 
     let data = {
       initialDate: new Date(initialDate.getTime() - (initialDate.getTimezoneOffset() * 60000)).toISOString(),
       finalDate: new Date(finalDate.getTime() - (finalDate.getTimezoneOffset() * 60000)).toISOString(),
       page: this.paginator.pageIndex,
       size: this.paginator.pageSize,
-      parkings: this.parkingsStr,
-      nameClient: ""
+      parkings: parkingStr,
+      nameClient: this.filterDashboard.controls.nameClient.value
     };
     this._saleService.getSales(data).pipe(finalize(() => { this.isLoadingResults = false })).subscribe(data => {
-      this.resultsLength = data.totalElements;
+      this.saleResult = data;
       this.dataSource = data.content
     })
   }

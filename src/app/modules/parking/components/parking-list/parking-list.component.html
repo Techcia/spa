@@ -1,122 +1,86 @@
-<div class="imagem"></div>
-<div class = "banner"></div>
-  <div id="parking" class="page-layout carded fullwidth inner-scroll">
-
-    <!-- TOP BACKGROUND -->
-    <!--<div class="top-bg accent"></div>-->
-    <!-- / TOP BACKGROUND -->
-    
-    
-    <!-- CENTER -->
-    <div class="center list">
-
-        <!-- HEADER -->
-        <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
-            fxLayoutAlign.gt-sm="space-between center">
-
-            <!-- SEARCH -->
-            <div class="row field">
-                <div class="col-md-4 col-sm-12">
-                    <!-- APP TITLE -->
-                    <div class="logo mt-26 mb-18 mb-md-0" fxLayout="row" class="estacionamento1" fxLayoutAlign="start center">
-                        <mat-icon class="logo-icon s-32 mr-16"
-                            [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-                            
-                        </mat-icon>
-
-                    </div>
-                    <!-- / APP TITLE -->
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <div class="search-wrapper mt-26 mb-18">
-                        <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
-                            <mat-icon>search</mat-icon>
-                            <input #filter placeholder="Procurar Estacionamento">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4 col-sm-12 text-right">
-                    <!-- ADD BUTTON -->
-                    <!--<button routerLink="/parking/create" class="button">
-                        
-                    </button>-->
-                    <a mat-raised-button routerLink="/parking/create"
-                    class="add-parking-button fuse-white mt-26 mb-18">
-                    <span>Adicionar Estacionamento</span>
-                </a>
-                    <!-- / ADD BUTTON -->
-                </div>
-            </div>
-
-            <!-- / SEARCH -->
-
-
-
-        </div>
-        <!-- / HEADER -->
-
-        <!-- CONTENT CARD -->
-        <div class="content-card">
-
-            <mat-table class="parkings-table" #table [dataSource]="dataSource" matSort [@animateStagger]="{value:'50'}"
-                fusePerfectScrollbar>
-
-                <!-- ID Column -->
-                <ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-                    <mat-cell *matCellDef="let parking">
-                        <p class="text-truncate">{{parking.id}}</p>
-                    </mat-cell>
-                </ng-container>
-
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nome</mat-header-cell>
-                    <mat-cell *matCellDef="let parking">
-                        <p class="text-truncate">{{parking.name}}</p>
-                    </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="numberOfVacancies">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Total de vagas</mat-header-cell>
-                    <mat-cell *matCellDef="let parking">
-                        <p class="text-truncate">{{parking.numberOfVacancies}}</p>
-                    </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="occupiedPlaces">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Vagas ocupadas</mat-header-cell>
-                    <mat-cell *matCellDef="let parking">
-                        <p class="text-truncate">0</p>
-                    </mat-cell>
-                </ng-container>
-
-
-                <!-- action Column -->
-                <ng-container matColumnDef="action">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Ação</mat-header-cell>
-                    <mat-cell *matCellDef="let parking" fxHide fxShow.gt-xs>
-                        <a routerLink="/parking/edit/{{parking.id}}">
-                            <mat-icon class="edit s-24" routerLinkActive="router-link-active">edit</mat-icon>
-                        </a>
-                        <a class="cursor" (click)="deleteParking(parking)">
-                            <mat-icon class="delete s-24" routerLinkActive="router-link-active">delete</mat-icon>
-                        </a>
-                    </mat-cell>
-                </ng-container>
-
-                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
-
-                <mat-row *matRowDef="let parking; columns: displayedColumns;" class="parking" matRipple>
-                </mat-row>
-            </mat-table>
-
-            <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
-                [pageSizeOptions]="[5, 10, 25, 100]">
-            </mat-paginator>
-
-        </div>
-        <!-- / CONTENT CARD -->
+<div class="parkings" fusePerfectScrollbar>
+    <div class="banner-imgaa">
+        <img src="./assets/images/logos/banner.svg" alt="banner" title="banner">
     </div>
-    <!-- / CENTER -->
-   
+    <div class="row filter">
+        <div class="col-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Nome do Estacionamento</mat-label>
+                <input matInput placeholder="Nome do Estacionamento ..." #filter>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div class="col-9 text-right">
+            <!-- ADD BUTTON -->
+            <!--<button routerLink="/parking/create" class="button">
+                    
+                </button>-->
+            <a  mat-raised-button routerLink="/parking/create" class="add-parking-button fuse-white mt-26 mb-18 filter-btn ">
+                <span>Adicionar Estacionamento</span>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="content-card">
+                <mat-table class="parkings-table" #table [dataSource]="dataSource" matSort
+                    [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+                        <mat-cell *matCellDef="let parking">
+                            <p class="text-truncate">{{parking.id}}</p>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Nome</mat-header-cell>
+                        <mat-cell *matCellDef="let parking">
+                            <p class="text-truncate">{{parking.name}}</p>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="numberOfVacancies">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Total de vagas</mat-header-cell>
+                        <mat-cell *matCellDef="let parking">
+                            <p class="text-truncate">{{parking.numberOfVacancies}}</p>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="occupiedPlaces">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Vagas ocupadas</mat-header-cell>
+                        <mat-cell *matCellDef="let parking">
+                            <p class="text-truncate">{{parking.occupiedPlaces}}</p>
+                        </mat-cell>
+                    </ng-container>
+
+
+                    <!-- action Column -->
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Ação
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let parking" fxHide fxShow.gt-xs>
+                            <a routerLink="/parking/edit/{{parking.id}}">
+                                <mat-icon class="edit s-24" routerLinkActive="router-link-active">edit</mat-icon>
+                            </a>
+                            <a class="cursor" (click)="deleteParking(parking)">
+                                <mat-icon class="delete s-24" routerLinkActive="router-link-active">delete
+                                </mat-icon>
+                            </a>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+                    <mat-row *matRowDef="let parking; columns: displayedColumns;" class="parking" matRipple>
+                    </mat-row>
+                </mat-table>
+
+                <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+
+            </div>
+        </div>
+    </div>
 </div>

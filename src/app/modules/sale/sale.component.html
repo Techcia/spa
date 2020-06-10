@@ -4,7 +4,7 @@
     </div>
     <form [formGroup]="filterDashboard" (ngSubmit)='findSales()'>
         <div class="row filter">
-            <div class="col-3">
+            <div class="col-2">
                 <mat-form-field appearance="outline">
                     <mat-label>Período</mat-label>
                     <mat-select (selectionChange)="onSelectPeriod($event)" formControlName="period" required>
@@ -47,6 +47,12 @@
                     <mat-error>Escolha pelo menos um estacionamento</mat-error>
                 </mat-form-field>
             </div>
+            <div class="col-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nome do Cliente</mat-label>
+                    <input matInput placeholder="Nome do cliente ..." formControlName="nameClient">
+                </mat-form-field>
+            </div>
             <div class="col-2">
                 <button [disabled]="isLoadingResults" type="submit" mat-button color="'primary'" class="filter-btn">
                     Filtrar
@@ -59,54 +65,54 @@
     <div class="row">
         <div class="col-12">
             <div class="content-card">
-                <mat-table class="parkings-table" #table [dataSource]="dataSource" matSort
-                    [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+                <mat-table class="parkings-table" #table [dataSource]="dataSource"
+                    [@animateStagger]="{value:'50'}">
 
                     <!-- ID Column -->
                     <ng-container matColumnDef="id">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
                         <mat-cell *matCellDef="let sale">
                             <p class="text-truncate">{{sale.id}}</p>
                         </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="parking">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Estacionamento</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef>Estacionamento</mat-header-cell>
                         <mat-cell *matCellDef="let sale">
                             <p class="text-truncate">{{sale.parking.name}}</p>
                         </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="client">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Cliente</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef>Cliente</mat-header-cell>
                         <mat-cell *matCellDef="let sale">
                             <p class="text-truncate">{{sale.client.name}}</p>
                         </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="status">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
                         <mat-cell *matCellDef="let sale">
                             <p class="text-truncate">{{sale.status}}</p>
                         </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="value">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Valor</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef >Valor</mat-header-cell>
                         <mat-cell *matCellDef="let sale">
                             <p class="text-truncate">{{sale.value | currency : 'R$'}}</p>
                         </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="checkin">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Checkin</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef>Checkin</mat-header-cell>
                         <mat-cell *matCellDef="let sale">
                             <p class="text-truncate">{{sale.checkin | date: 'dd/MM/yyyy HH:mm'}}</p>
                         </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="dataPay">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Pagamento</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef>Pagamento</mat-header-cell>
                         <mat-cell *matCellDef="let sale">
                             <p class="text-truncate">{{sale.dataPay | date: 'dd/MM/yyyy HH:mm'}}</p>
                         </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="checkout">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Checkout</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef>Checkout</mat-header-cell>
                         <mat-cell *matCellDef="let sale">
                             <p class="text-truncate">{{sale.checkout | date: 'dd/MM/yyyy HH:mm'}}</p>
                         </mat-cell>
@@ -123,4 +129,6 @@
             </div>
         </div>
     </div>
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
 </div>
+

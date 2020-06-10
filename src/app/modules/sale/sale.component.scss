@@ -31,4 +31,11 @@
         color: #fff!important;
         margin-top: 14px!important;
     }
+
+    mat-spinner{
+        position: fixed;
+        top: 45%;
+        left: 45%;
+        z-index: 999999;
+    }
 }
