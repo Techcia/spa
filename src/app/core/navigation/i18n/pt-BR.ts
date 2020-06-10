@@ -5,6 +5,8 @@ export const locale = {
             'HOME': 'Home',
             'PARKING': 'Estacionamento',
             'DASHBOARDS': 'Dashboards',
+            'SALE': 'Vendas',
+
         }
     }
 };

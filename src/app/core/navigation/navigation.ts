@@ -17,6 +17,14 @@ export const navigation: FuseNavigation[] = [
         icon: 'local_parking',
         url: '/parking',
     },
+    {
+        id: 'sale',
+        title: 'Vendas',
+        translate: 'NAV.SALE',
+        type: 'item',
+        icon: 'attach_money',
+        url: '/sale',
+    },
 
     // {
     //     id: 'dashboards',

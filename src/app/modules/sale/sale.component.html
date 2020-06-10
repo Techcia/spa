@@ -1,0 +1,126 @@
+<div class="sales" fusePerfectScrollbar>
+    <div class="banner">
+        <img src="./assets/images/logos/banner.svg" alt="banner" title="banner">
+    </div>
+    <form [formGroup]="filterDashboard" (ngSubmit)='findSales()'>
+        <div class="row filter">
+            <div class="col-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Período</mat-label>
+                    <mat-select (selectionChange)="onSelectPeriod($event)" formControlName="period" required>
+                        <mat-option [value]="1">Esta Semana</mat-option>
+                        <mat-option [value]="2">Semana Anterior</mat-option>
+                        <mat-option [value]="3">Mês Atual</mat-option>
+                        <mat-option [value]="4">Mês Anterior</mat-option>
+                        <mat-option [value]="5">Este Ano</mat-option>
+                        <mat-option [value]="6">Ano Anterior</mat-option>
+                        <mat-option [value]="7">Escolher Período</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div *ngIf="filterDashboard.controls.period.value == 7" class="col-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Data Inicial</mat-label>
+                    <input [min]="minDate" [max]="filterDashboard.controls.finalDate.value" formControlName="initalDate"
+                        matInput [matDatepicker]="picker1">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                    <mat-error>Preencha a data</mat-error>
+                </mat-form-field>
+            </div>
+            <div *ngIf="filterDashboard.controls.period.value == 7" class="col-2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Data Final</mat-label>
+                    <input [min]="filterDashboard.controls.initalDate.value" formControlName="finalDate" matInput
+                        [matDatepicker]="picker2">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                    <mat-error>Preencha a data</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Estacionamentos</mat-label>
+                    <mat-select formControlName="parkings" multiple>
+                        <mat-option *ngFor="let parking of parkings" [value]="parking.id">{{parking.name}}</mat-option>
+                    </mat-select>
+                    <mat-error>Escolha pelo menos um estacionamento</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-2">
+                <button [disabled]="isLoadingResults" type="submit" mat-button color="'primary'" class="filter-btn">
+                    Filtrar
+                    <span *ngIf="isLoadingResults" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-12">
+            <div class="content-card">
+                <mat-table class="parkings-table" #table [dataSource]="dataSource" matSort
+                    [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+                        <mat-cell *matCellDef="let sale">
+                            <p class="text-truncate">{{sale.id}}</p>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="parking">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Estacionamento</mat-header-cell>
+                        <mat-cell *matCellDef="let sale">
+                            <p class="text-truncate">{{sale.parking.name}}</p>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="client">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Cliente</mat-header-cell>
+                        <mat-cell *matCellDef="let sale">
+                            <p class="text-truncate">{{sale.client.name}}</p>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                        <mat-cell *matCellDef="let sale">
+                            <p class="text-truncate">{{sale.status}}</p>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="value">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Valor</mat-header-cell>
+                        <mat-cell *matCellDef="let sale">
+                            <p class="text-truncate">{{sale.value | currency : 'R$'}}</p>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="checkin">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Checkin</mat-header-cell>
+                        <mat-cell *matCellDef="let sale">
+                            <p class="text-truncate">{{sale.checkin | date: 'dd/MM/yyyy HH:mm'}}</p>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="dataPay">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Pagamento</mat-header-cell>
+                        <mat-cell *matCellDef="let sale">
+                            <p class="text-truncate">{{sale.dataPay | date: 'dd/MM/yyyy HH:mm'}}</p>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="checkout">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>Checkout</mat-header-cell>
+                        <mat-cell *matCellDef="let sale">
+                            <p class="text-truncate">{{sale.checkout | date: 'dd/MM/yyyy HH:mm'}}</p>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+                    <mat-row *matRowDef="let parking; columns: displayedColumns;" class="parking" matRipple>
+                    </mat-row>
+                </mat-table>
+                <mat-paginator #paginator [length]="saleResult.totalElements" [pageIndex]="0" [pageSize]="pageSize"
+                    [pageSizeOptions]="[10, 25, 50, 100]">
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>
